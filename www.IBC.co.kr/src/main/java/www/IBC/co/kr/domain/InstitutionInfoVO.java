@@ -7,8 +7,9 @@ import lombok.Data;
 @Data
 public class InstitutionInfoVO {
 	
-	private int  ino;
+	private Long  ino;
 	private String iname;
+	private String ilogo;
 	private String iaddress;
 	private String iphonenum;
 	private String iintro;
