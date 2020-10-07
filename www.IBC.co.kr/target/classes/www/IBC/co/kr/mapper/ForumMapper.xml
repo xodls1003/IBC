@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace ="www.IBC.co.kr.mapper.ForumMapper">
+<select id="getList" resultType="www.IBC.co.kr.domain.ForumVO"> 
+<![CDATA[
+select * from tbl_forum where fno > 0
+]]>
+</select>
+
+<insert id="insert">
+	insert into tbl_forum(fno, ftitle, fsort, fcontent, fwriter)
+	values(seq_forum.nextval,#{ftitle},#{fsort},#{fcontent},#{fwriter})
+</insert>
+
+<insert id="insertSelectKey">
+	<selectKey keyProperty="fno" order="BEFORE" resultType="long">
+		select seq_forum.nextval from dual
+	</selectKey>
+	
+	insert into tbl_forum(fno, ftitle, fsort, fcontent, fwriter)
+	values (#{fno} ,#{ftitle} ,#{fsort} ,#{fcontent}, #{fwriter})
+</insert>
+<select id="read" resultType = "www.IBC.co.kr.domain.ForumVO">
+	select * from tbl_forum where fno = #{fno}
+</select>
+<update id="delete" >
+	update tbl_forum
+	set fshow= 'N'
+	where fno=#{fno}
+</update>
+
+<update id="update">
+	update tbl_forum
+	set ftitle=#{ftitle},
+	fsort=#{fsort},
+	fcontent=#{fcontent},
+	fwriter=#{fwriter}
+	where fno=#{fno}
+</update>
+</mapper>
