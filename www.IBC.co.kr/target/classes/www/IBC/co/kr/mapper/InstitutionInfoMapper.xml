@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="www.IBC.co.kr.mapper">
+<mapper namespace="www.IBC.co.kr.mapper.InstitutionInfoMapper">
 
 	<insert id="registerInfo">
 		INSERT INTO TBL_InstitutionInfo(INO,INAME,ILOGO,IADDRESS,IPHONENUM,IINTRO,IEVALUATION,IHOMEPAGE,IESTABLISHMENT)
@@ -23,9 +23,13 @@
 	<select id="list" resultType="www.IBC.co.kr.domain.InstitutionInfoVO">
 	<![CDATA[
 		SELECT A.* FROM
-			(SELECT /*+INDEX_DESC(i pk_institutioninfo)*/ i.*,ROWNUM rnum FROM tbl_institutioninfo i WHERE ROWNUM <= #{currentpage}* 10 and i.ino > 0) A
-		WHERE A.rnum > (#{currentpage}-1)* 10
+			(SELECT /*+INDEX_DESC(i pk_institutioninfo)*/ i.*,ROWNUM rnum FROM tbl_institutioninfo i WHERE ROWNUM <= #{currentpage} * #{amount}  and i.ino > 0) A
+		WHERE A.rnum > (#{currentpage}-1)* #{amount}
 	]]>
+	</select>
+	
+	<select id="listCount">
+		SELECT COUNT(INO) FROM TBL_InstitutionInfo
 	</select>
 	
 

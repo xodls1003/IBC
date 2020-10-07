@@ -26,6 +26,10 @@
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSouce"></property>
 	</bean>
-
+	
+	<mybatis-spring:scan base-package="www.IBC.co.kr.mapper"/>
+	<context:component-scan base-package="www.IBC.co.kr.service"></context:component-scan>
+	
+	
 	
 </beans>

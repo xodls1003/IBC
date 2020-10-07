@@ -34,8 +34,13 @@ public class InstitutionInfoServiceImpl implements InstitutionInfoService {
 	}
 
 	@Override
-	public List<InstitutionInfoVO> list(int currentpage) {
-		return mapper.list(currentpage);
+	public List<InstitutionInfoVO> list(int currentpage, int amount) {
+		return mapper.list(currentpage,amount);
+	}
+
+	@Override
+	public int listCount() {
+		return mapper.hashCode();
 	}
 
 }

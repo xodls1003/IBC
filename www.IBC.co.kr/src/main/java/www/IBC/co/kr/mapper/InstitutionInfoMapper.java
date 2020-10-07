@@ -21,7 +21,10 @@ public interface InstitutionInfoMapper {
 	public List<InstitutionInfoVO> searchInfo(@Param("area") String area, @Param("subject") String subject);
 	
 	//학원정보 페이징 목록
-	public List<InstitutionInfoVO> list(int currentpage);
+	public List<InstitutionInfoVO> list(@Param("currentpage") int currentpage,@Param("amount") int amount);
+	
+	//총 학원개수
+	public int listCount();
 	
 
 }
