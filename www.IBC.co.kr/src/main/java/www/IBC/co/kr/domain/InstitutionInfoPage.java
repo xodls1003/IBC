@@ -1,5 +1,8 @@
 package www.IBC.co.kr.domain;
 
+import lombok.Data;
+
+@Data
 public class InstitutionInfoPage {
 	
 	//총 게시물개수
@@ -11,7 +14,7 @@ public class InstitutionInfoPage {
 	//다음페이지
 	int nextPage;
 	//현재페이지
-	int currentPage;
+	int currentPage = 1;
 	//한페이당 게시글개수
 	int boardCount;
 	//첫 페이지 
