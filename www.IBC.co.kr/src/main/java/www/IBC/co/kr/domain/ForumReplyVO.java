@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class ReplyVO {
+public class ForumReplyVO {
 	private Long frno;
 	private Long fno;
 	private String frcontent;

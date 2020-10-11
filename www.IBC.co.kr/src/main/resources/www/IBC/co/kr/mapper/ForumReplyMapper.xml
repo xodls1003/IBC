@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="www.IBC.co.kr.mapper.ForumReplyMapper">
+
+	<insert id="insert">
+
+		insert into tbl_freply (frno, fno, frcontent, frwriter)
+		values (seq_forum_reply.nextval, #{fno}, #{frcontent}, #{frwriter})
+
+	</insert>
+
+	<select id="read" resultType="www.IBC.co.kr.domain.ForumReplyVO">
+
+		select * from tbl_freply where frno =
+		#{frno}
+
+	</select>
+
+
+	<delete id="delete">
+
+		update tbl_freply set frshow="N" where frno = #{frno}
+
+	</delete>
+
+	<update id="update">
+
+		update tbl_freply set frcontent = #{frcontent}
+		where frno = #{frno}
+
+	</update>
+
+
+
+
+<select id="getListWithPaging" resultType="www.IBC.co.kr.domain.ForumReplyVO">
+
+  <![CDATA[
+ select  frno, fno, frcontent, frwriter, frregdate,frlike,frshow
+ from 
+   (
+    select /*+INDEX(tbl_freply idx_freply) */ 
+      rownum rn, frno, fno, frcontent, frwriter, frregdate, frlike,frshow
+    from tbl_freply
+    where fno =  #{fno}
+    and frno > 0
+    and rownum <= #{cri.pageNum} * #{cri.amount}
+   ) where rn > (#{cri.pageNum} -1) * #{cri.amount}
+]]>
+
+</select>
+
+
+<select id="getCountByBno" resultType="int">
+<![CDATA[
+select count(frno) from tbl_freply where fno = #{fno}
+]]>
+</select>
+
+
+</mapper>
