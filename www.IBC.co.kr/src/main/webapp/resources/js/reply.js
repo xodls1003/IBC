@@ -23,12 +23,31 @@ var replyService = (function() {
 		})
 	}
 
+//	function getList(param, callback, error) {
+//
+//		var bno = param.bno;
+//		var page = param.page || 1;
+//
+//		$.getJSON("/replies/pages/" + bno + "/" + page + ".json",
+//				function(data) {
+//					if (callback) {
+//						callback(data);
+//					}
+//				}).fail(function(xhr, status, err) {
+//			if (error) {
+//				error();
+//			}
+//		});
+//	}
+	
+	
+
 	function getList(param, callback, error) {
 
-	    var fno = param.fno;
+	    var bno = param.bno;
 	    var page = param.page || 1;
 	    
-	    $.getJSON("/replies/pages/" + fno + "/" + page + ".json",
+	    $.getJSON("/replies/pages/" + bno + "/" + page + ".json",
 	        function(data) {
 	    	
 	          if (callback) {
@@ -43,10 +62,10 @@ var replyService = (function() {
 	  }
 
 	
-	function remove(frno, callback, error) {
+	function remove(rno, callback, error) {
 		$.ajax({
-			type : 'remove',
-			url : '/replies/' + frno,
+			type : 'delete',
+			url : '/replies/' + rno,
 			success : function(deleteResult, status, xhr) {
 				if (callback) {
 					callback(deleteResult);
@@ -62,11 +81,11 @@ var replyService = (function() {
 
 	function update(reply, callback, error) {
 
-		console.log("FRNO: " + reply.frno);
+		console.log("RNO: " + reply.rno);
 
 		$.ajax({
 			type : 'put',
-			url : '/replies/' + reply.frno,
+			url : '/replies/' + reply.rno,
 			data : JSON.stringify(reply),
 			contentType : "application/json; charset=utf-8",
 			success : function(result, status, xhr) {
@@ -82,9 +101,9 @@ var replyService = (function() {
 		});
 	}
 
-	function get(frno, callback, error) {
+	function get(rno, callback, error) {
 
-		$.get("/replies/" + frno + ".json", function(result) {
+		$.get("/replies/" + rno + ".json", function(result) {
 
 			if (callback) {
 				callback(result);

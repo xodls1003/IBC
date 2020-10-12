@@ -61,7 +61,7 @@
   <div class="col-lg-12">
     <div class="panel panel-default">
 
-      <div class="panel-heading">Board Register</div>
+      <div class="panel-heading">Forum Register</div>
       <!-- /.panel-heading -->
       <div class="panel-body">
 
@@ -125,7 +125,6 @@
 <script>
 
 $(document).ready(function(e){
-
 
 
   
@@ -220,6 +219,7 @@ $(document).ready(function(e){
     var str ="";
     
     $(uploadResultArr).each(function(i, obj){
+    
     
 		
 		if(obj.image){

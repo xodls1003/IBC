@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import lombok.extern.log4j.Log4j;
 import www.IBC.co.kr.domain.Criteria;
 import www.IBC.co.kr.domain.ForumVO;
 import www.IBC.co.kr.domain.PageDTO;
@@ -32,9 +31,11 @@ public class ForumController {
 		
 		model.addAttribute("list",service.getList(cri));
 		
-		int total = service.getTotal(cri);
-		
-		model.addAttribute("pageMaker", new PageDTO(cri,total));
+		/*
+		 * int total = service.getTotal(cri);
+		 * 
+		 * model.addAttribute("pageMaker", new PageDTO(cri,total));
+		 */
 	}
 	//글 등록
 	@PostMapping("/register")

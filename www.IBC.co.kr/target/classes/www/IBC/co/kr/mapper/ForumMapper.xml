@@ -33,13 +33,13 @@ fno > 0 and rownum <= 100
 
 <insert id="insert">
 	insert into tbl_forum(fno, ftitle, fsort, fcontent, fwriter)
-	values(seq_forum.nextval,#{ftitle}, 0 ,#{fcontent},#{fwriter})
+	values(seq_free_forum.nextval,#{ftitle}, 0 ,#{fcontent},#{fwriter})
 </insert>
 
 <insert id="insertSelectKey">
 	
 	<selectKey keyProperty="fno" order="BEFORE" resultType="long">
-		select seq_forum.nextval from dual
+		select seq_free_forum.nextval from dual
 	</selectKey>
 	
 	insert into tbl_forum(fno, ftitle, fsort, fcontent, fwriter)
@@ -68,11 +68,11 @@ fno > 0 and rownum <= 100
 <select id="getListWithPaging" resultType="www.IBC.co.kr.domain.ForumVO">
   <![CDATA[
   select 
-    fno, ftitle, fsort ,fcontent, fwriter, fregdate, flike, fviews,fshow, forumreplycnt
+    fno, ftitle,fcontent, fwriter, fregdate, flike, fviews, forumreplycnt
   from 
       (
-      select /*+INDEX_DESC(tbl_forum tbl_forum_pk) */
-        rownum rn, fno, ftitle, fsort, fcontent, fwriter, fregdate, flike,fviews,fshow ,forumreplycnt
+      select /*+ INDEX_DESC(tbl_forum PK_FORUM) */
+        rownum rn, fno, ftitle,fcontent, fwriter, fregdate, flike,fviews,forumreplycnt
       from 
         tbl_forum
       where 

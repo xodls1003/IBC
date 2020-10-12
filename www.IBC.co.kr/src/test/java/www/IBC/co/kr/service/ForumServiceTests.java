@@ -44,20 +44,14 @@ public class ForumServiceTests {
 		log.info(service.get(1L));
 		
 	}
-	@Test
-	public void testDelete() {
-		log.info("REMOVE RESULT: "+ service.remove(2L));
-	}
-	
-	@Test
-	public void testUpdate() {
-		ForumVO forum= service.get(1L);
-		
-		if(forum== null) {
-			return ;
-		}
-		forum.setFtitle("제목 수정 테스트");
-		log.info("Modify Result : " + service.modify(forum));
-	}
+	/*
+	 * @Test public void testDelete() { log.info("REMOVE RESULT: "+
+	 * service.remove(2L)); }
+	 * 
+	 * @Test public void testUpdate() { ForumVO forum= service.get(1L);
+	 * 
+	 * if(forum== null) { return ; } forum.setFtitle("제목 수정 테스트");
+	 * log.info("Modify Result : " + service.modify(forum)); }
+	 */
 
 }
