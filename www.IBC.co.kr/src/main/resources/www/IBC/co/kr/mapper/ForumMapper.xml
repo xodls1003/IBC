@@ -3,28 +3,53 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace ="www.IBC.co.kr.mapper.ForumMapper">
+
+<sql id="criteria">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							ftitle like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'C'.toString()">
+							fcontent like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'W'.toString()">
+							fwriter like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+
 <select id="getList" resultType="www.IBC.co.kr.domain.ForumVO"> 
 <![CDATA[
-select * from tbl_forum where fno > 0
+select * from tbl_forum where 
+fno > 0 and rownum <= 100
 ]]>
 </select>
 
 <insert id="insert">
 	insert into tbl_forum(fno, ftitle, fsort, fcontent, fwriter)
-	values(seq_forum.nextval,#{ftitle},#{fsort},#{fcontent},#{fwriter})
+	values(seq_forum.nextval,#{ftitle}, 0 ,#{fcontent},#{fwriter})
 </insert>
 
 <insert id="insertSelectKey">
+	
 	<selectKey keyProperty="fno" order="BEFORE" resultType="long">
 		select seq_forum.nextval from dual
 	</selectKey>
 	
 	insert into tbl_forum(fno, ftitle, fsort, fcontent, fwriter)
-	values (#{fno} ,#{ftitle} ,#{fsort} ,#{fcontent}, #{fwriter})
+	values (#{fno} ,#{ftitle} , 0 ,#{fcontent}, #{fwriter})
 </insert>
+
 <select id="read" resultType = "www.IBC.co.kr.domain.ForumVO">
 	select * from tbl_forum where fno = #{fno}
 </select>
+
 <update id="delete" >
 	update tbl_forum
 	set fshow= 'N'
@@ -34,9 +59,48 @@ select * from tbl_forum where fno > 0
 <update id="update">
 	update tbl_forum
 	set ftitle=#{ftitle},
-	fsort=#{fsort},
+	fsort= 0,
 	fcontent=#{fcontent},
 	fwriter=#{fwriter}
 	where fno=#{fno}
 </update>
+
+<select id="getListWithPaging" resultType="www.IBC.co.kr.domain.ForumVO">
+  <![CDATA[
+  select 
+    fno, ftitle, fsort ,fcontent, fwriter, fregdate, flike, fviews,fshow, forumreplycnt
+  from 
+      (
+      select /*+INDEX_DESC(tbl_forum tbl_forum_pk) */
+        rownum rn, fno, ftitle, fsort, fcontent, fwriter, fregdate, flike,fviews,fshow ,forumreplycnt
+      from 
+        tbl_forum
+      where 
+  ]]>
+   <include refid="criteria"></include> 
+      
+  <![CDATA[    
+      rownum <= #{pageNum} * #{amount}
+      )
+  where rn > (#{pageNum} -1) * #{amount}   
+  ]]>
+  </select>
+
+  
+  
+
+  <select id="getTotalCount" resultType="int">
+  select count(*) from tbl_forum where 
+  
+    <include refid="criteria"></include> 
+    
+  fno > 0  
+  
+  </select>
+  
+  <update id="updateForumReplyCnt">
+    update tbl_forum set forumreplycnt = forumreplycnt + #{amount} where fno = #{fno}
+  </update>  
+  
+
 </mapper>

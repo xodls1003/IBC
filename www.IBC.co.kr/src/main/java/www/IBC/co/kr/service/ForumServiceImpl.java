@@ -4,22 +4,21 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import lombok.AllArgsConstructor;
 import lombok.Setter;
-import lombok.extern.log4j.Log4j;
 import www.IBC.co.kr.domain.Criteria;
 import www.IBC.co.kr.domain.ForumVO;
 import www.IBC.co.kr.mapper.ForumMapper;
 
 
 @Service
-@AllArgsConstructor
-public class ForumServicelmpl implements ForumService{
+public class ForumServiceImpl implements ForumService{
 	
 	@Setter(onMethod_ = @Autowired)
 	private ForumMapper mapper;
 	
+	@Transactional
 	@Override
 	public void register(ForumVO forum) {
 		
@@ -32,7 +31,7 @@ public class ForumServicelmpl implements ForumService{
 		
 		return mapper.read(fno);
 	}
-
+	@Transactional
 	@Override
 	public boolean modify(ForumVO forum) {
 		
@@ -42,13 +41,13 @@ public class ForumServicelmpl implements ForumService{
 	@Override
 	public boolean remove(Long fno) {
 		
-		return mapper.delete(fno)==1;
+		return mapper.delete(fno) == 1;
 	}
 
 	@Override
 	public List<ForumVO> getList(Criteria cri) {
 		
-		return mapper.getList();
+		return mapper.getListWithPaging(cri);
 	}
 
 	

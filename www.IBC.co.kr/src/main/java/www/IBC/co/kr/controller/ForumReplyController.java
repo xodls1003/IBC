@@ -3,6 +3,7 @@ package www.IBC.co.kr.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,15 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j;
 import www.IBC.co.kr.domain.Criteria;
 import www.IBC.co.kr.domain.ForumReplyPageDTO;
 import www.IBC.co.kr.domain.ForumReplyVO;
 import www.IBC.co.kr.service.ForumReplyService;
 
-@RequestMapping("/www.IBC.co.kr/forum/replies/*")
+@RequestMapping("/forum/replies/*")
 @RestController
 @AllArgsConstructor
 public class ForumReplyController {
@@ -55,11 +54,13 @@ public class ForumReplyController {
 	public ResponseEntity<ForumReplyVO> get(@PathVariable("frno") Long frno){
 		return new ResponseEntity<>(service.get(frno), HttpStatus.OK);
 	}
+	
 	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH },
-			value="/{frno}",
+			value="/{frno}/remove",
 			consumes="application/json",
 			produces={MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> remove(@PathVariable("frno") Long frno){
+		
 		
 		return service.remove(frno) == 1
 					? new ResponseEntity<>("success", HttpStatus.OK)
@@ -67,14 +68,14 @@ public class ForumReplyController {
 		
 	}
 	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH },
-			value="/{rno}",
+			value="/{frno}/modify",
 			consumes="application/json",
 			produces={MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> modify(
 					@RequestBody ForumReplyVO vo,
-					@PathVariable("rno") Long rno){
+					@PathVariable("frno") Long frno){
 		
-		vo.setFrno(rno);
+		vo.setFrno(frno);
 	
 		
 		return service.modify(vo) == 1

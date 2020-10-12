@@ -15,7 +15,7 @@ public interface ForumMapper {
 	
 	public void insert(ForumVO forum);
 	
-	public void insertSelectKey(ForumVO forum);
+	public Integer insertSelectKey(ForumVO forum);
 	
 	public ForumVO read(Long fno);
 	
@@ -25,5 +25,5 @@ public interface ForumMapper {
 	
 	public int getTotalCount(Criteria cri);
 	
-	public void updateForumReplyCnt(@Param("fno") Long fno, @Param("amount")int amount);
+	public void updateForumReplyCnt(@Param("fno") Long fno, @Param("amount") int amount);
 }

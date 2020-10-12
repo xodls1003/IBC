@@ -16,14 +16,20 @@ import www.IBC.co.kr.domain.PageDTO;
 import www.IBC.co.kr.service.ForumService;
 
 @Controller
-@Log4j
-@RequestMapping("/www.IBC.co.kr/forum/*")
+@RequestMapping("/forum/*")
 public class ForumController {
+	
 	private ForumService service;
+	
+	@GetMapping("/register")
+	public void register() {
+		
+	}
 	
 	//페이지 목록
 	@GetMapping("/list")
 	public void list(Criteria cri,Model model) {
+		
 		model.addAttribute("list",service.getList(cri));
 		
 		int total = service.getTotal(cri);
@@ -33,8 +39,11 @@ public class ForumController {
 	//글 등록
 	@PostMapping("/register")
 	public String register(ForumVO forum, RedirectAttributes rttr) {
+		
 		service.register(forum);
+		
 		rttr.addFlashAttribute("result", forum.getFno());
+		
 		return "redirect:/forum/list";
 	}
 	
@@ -43,19 +52,26 @@ public class ForumController {
 	public void get(@RequestParam("fno") Long fno, @ModelAttribute("cri") Criteria cri, Model model) {
 		model.addAttribute("forum", service.get(fno));
 	}
+	
+	
 	//수정처리
 	@PostMapping("/modify")
 	public String modify(ForumVO forum,@ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 		if(service.modify(forum)) {
 			rttr.addFlashAttribute("result", "success");
 		}
+		
+		
 		return "redirect:/forum/list"+cri.getListLink();
 	}
 	//삭제 처리
 	@PostMapping("/remove")
 	public String remove(@RequestParam("fno") Long fno, 
 			@ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
-			return "redirect:/forum/list"+cri.getListLink();
+		
+
+		
+		return "redirect:/forum/list"+cri.getListLink();
 	}
 	
 }

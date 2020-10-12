@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.Setter;
-import lombok.extern.log4j.Log4j;
 import www.IBC.co.kr.domain.Criteria;
 import www.IBC.co.kr.domain.ForumReplyPageDTO;
 import www.IBC.co.kr.domain.ForumReplyVO;
@@ -14,8 +14,7 @@ import www.IBC.co.kr.mapper.ForumMapper;
 import www.IBC.co.kr.mapper.ForumReplyMapper;
 
 @Service
-@Log4j
-public class ForumReplyServicelmpl implements ForumReplyService {
+public class ForumReplyServiceImpl implements ForumReplyService {
 	
 	@Setter(onMethod_ =@Autowired)
 	private ForumReplyMapper mapper;
@@ -23,7 +22,7 @@ public class ForumReplyServicelmpl implements ForumReplyService {
 	@Setter(onMethod_ =@Autowired)
 	private ForumMapper forumMapper;
 	
-	
+	@Transactional
 	@Override
 	public int register(ForumReplyVO vo) {
 		
@@ -43,7 +42,7 @@ public class ForumReplyServicelmpl implements ForumReplyService {
 		
 		return mapper.update(vo);
 	}
-
+	@Transactional
 	@Override
 	public int remove(Long frno) {
 		

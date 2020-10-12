@@ -18,7 +18,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				Forum List Page
-				<button id='regBtn' type="button" class="btn btn-xs pull-right" >Register
+				<button id='regBtn' type="button" class="btn btn-xs pull-right">Register
 					New Forum</button>
 			</div>
 
@@ -31,26 +31,28 @@
 							<th>제목</th>
 							<th>작성자</th>
 							<th>작성일</th>
-							<th>수정일</th>
+							<th>좋아요</th>
+							<th>조회수</th>
 						</tr>
 					</thead>
 
-					<c:forEach items="${list}" var="forum">
-						<tr>
-							
-							<td><c:out value="${forum.fno}" /></td>
-							
-								
-							<td><a class='move' href='<c:out value="${forum.fno}"/>'>
-									<c:out value="${forum.ftitle}" />
-									<b>[<c:out value="${forum.replyCnt}"></c:out>]</b>
-							</a></td>
+          <c:forEach items="${list}" var="forum">
+            <tr>
+              <td><c:out value="${forum.fno}" /></td>
+               <td>
+                  <a class='move' href='
+                  <c:out value="${forum.fno}"/>'>
+                  <c:out value="${forum.ftitle}" />   
+                  <b>[  <c:out value="${forum.forumReplyCnt}" />  ]</b>
+                  </a>
+              <td><c:out value="${forum.fwriter}" /></td>
+              <td><fmt:formatDate pattern="yyyy-MM-dd"
+                  value="${forum.fregdate}" /></td>
+                 <td><c:out value="${forum.flike}" /></td>
+                 <td><c:out value="${forum.fviews}"/></td>
+            </tr>
+          </c:forEach>
 
-							<td><c:out value="${forum.fwriter}" /></td>
-							<td><fmt:formatDate pattern="yyyy-MM-dd"
-									value="${forum.fregdate}" /></td>
-						</tr>
-					</c:forEach>
 				</table>
 
 				<div class='row'>
@@ -90,7 +92,6 @@
 				<div class='pull-right'>
 					<ul class="pagination">
 
-			
 						<c:if test="${pageMaker.prev}">
 							<li class="paginate_button previous"><a
 								href="${pageMaker.startPage -1}">Previous</a></li>
@@ -98,7 +99,7 @@
 
 						<c:forEach var="num" begin="${pageMaker.startPage}"
 							end="${pageMaker.endPage}">
-							<li class="paginate_button  ${pageMaker.cri.pageNum == num ? "active":""} ">
+							<li class="paginate_button  ${pageMaker.cri.pageNum == num ? " active":""} ">
 								<a href="${num}">${num}</a>
 							</li>
 						</c:forEach>

@@ -19,11 +19,11 @@
 	</select>
 
 
-	<delete id="delete">
+	<update id="delete">
 
 		update tbl_freply set frshow="N" where frno = #{frno}
 
-	</delete>
+	</update>
 
 	<update id="update">
 
@@ -58,6 +58,10 @@
 select count(frno) from tbl_freply where fno = #{fno}
 ]]>
 </select>
+
+<update id="updateReplyCnt">
+		update tbl_forum set forumreplycnt = forumreplycnt + #{amount} where fno = #{fno}
+	</update>
 
 
 </mapper>

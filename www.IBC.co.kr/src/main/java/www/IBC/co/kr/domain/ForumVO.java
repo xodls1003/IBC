@@ -13,6 +13,7 @@ public class ForumVO {
 	private String fwriter;
 	private Date fregdate;
 	private int flike;
-	private Long fview;
+	private Long fviews;
 	private char fshow;
+	private int forumReplyCnt;
 }

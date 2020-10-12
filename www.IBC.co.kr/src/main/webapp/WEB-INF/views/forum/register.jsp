@@ -7,13 +7,13 @@
 
 <div class="row">
   <div class="col-lg-12">
-    <h1 class="page-header">forum Register</h1>
+    <h1 class="page-header">Board Register</h1>
   </div>
   <!-- /.col-lg-12 -->
 </div>
 <!-- /.row -->
 
-	<!-- <style>
+	<style>
 .uploadResult {
 	width: 100%;
 	background-color: gray;
@@ -56,12 +56,12 @@
   align-items: center;
 }
 </style>
- -->
+
 <div class="row">
   <div class="col-lg-12">
     <div class="panel panel-default">
 
-      <div class="panel-heading">forum Register</div>
+      <div class="panel-heading">Board Register</div>
       <!-- /.panel-heading -->
       <div class="panel-body">
 
@@ -93,13 +93,13 @@
 </div>
 <!-- /.row -->
 
-<!-- 
+
 <div class="row">
   <div class="col-lg-12">
     <div class="panel panel-default">
 
       <div class="panel-heading">File Attach</div>
-      /.panel-heading
+      <!-- /.panel-heading -->
       <div class="panel-body">
         <div class="form-group uploadDiv">
             <input type="file" name='uploadFile' multiple>
@@ -113,18 +113,20 @@
         
         
       </div>
-       end panel-body
+      <!--  end panel-body -->
 
     </div>
-     end panel-body
+    <!--  end panel-body -->
   </div>
-  end panel
+  <!-- end panel -->
 </div>
-/.row
- -->
+<!-- /.row -->
+
 <script>
 
 $(document).ready(function(e){
+
+
 
   
   var formObj = $("form[role='form']");
@@ -137,7 +139,7 @@ $(document).ready(function(e){
     
     var str = "";
     
-    /* $(".uploadResult ul li").each(function(i, obj){
+    $(".uploadResult ul li").each(function(i, obj){
       
       var jobj = $(obj);
       
@@ -152,7 +154,7 @@ $(document).ready(function(e){
       str += "<input type='hidden' name='attachList["+i+"].fileType' value='"+ jobj.data("type")+"'>";
       
     });
-     */
+    
     console.log(str);
     
     formObj.append(str).submit();
@@ -160,7 +162,7 @@ $(document).ready(function(e){
   });
 
   
- /*  var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+  var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
   var maxSize = 5242880; //5MB
   
   function checkExtension(fileName, fileSize){
@@ -219,29 +221,8 @@ $(document).ready(function(e){
     
     $(uploadResultArr).each(function(i, obj){
     
-        /* //image type
-        if(obj.image){
-          var fileCallPath =  encodeURIComponent( obj.uploadPath+ "/s_"+obj.uuid +"_"+obj.fileName);
-          str += "<li><div>";
-          str += "<span> "+ obj.fileName+"</span>";
-          str += "<button type='button' data-file=\'"+fileCallPath+"\' data-type='image' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
-          str += "<img src='/display?fileName="+fileCallPath+"'>";
-          str += "</div>";
-          str +"</li>";
-        }else{
-          var fileCallPath =  encodeURIComponent( obj.uploadPath+"/"+ obj.uuid +"_"+obj.fileName);            
-            var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
-              
-          str += "<li><div>";
-          str += "<span> "+ obj.fileName+"</span>";
-          str += "<button type='button' data-file=\'"+fileCallPath+"\' data-type='file' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
-          str += "<img src='/resources/img/attach.png'></a>";
-          str += "</div>";
-          str +"</li>";
-        } */
-		//image type
 		
-		/* if(obj.image){
+		if(obj.image){
 			var fileCallPath =  encodeURIComponent( obj.uploadPath+ "/s_"+obj.uuid +"_"+obj.fileName);
 			str += "<li data-path='"+obj.uploadPath+"'";
 			str +=" data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'"
@@ -290,7 +271,7 @@ $(document).ready(function(e){
            
            targetLi.remove();
          }
-    }); //$.ajax */ */
+    }); //$.ajax
    });
 
 
