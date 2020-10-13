@@ -41,7 +41,7 @@
  select  frno, fno, frcontent, frwriter, frregdate,frlike,frshow
  from 
    (
-    select /*+INDEX(tbl_freply idx_freply) */ 
+    select /*+INDEX(tbl_freply pk_freply) */ 
       rownum rn, frno, fno, frcontent, frwriter, frregdate, frlike,frshow
     from tbl_freply
     where fno =  #{fno}

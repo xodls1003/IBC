@@ -1,6 +1,5 @@
 package www.IBC.co.kr.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -61,6 +60,7 @@ public class ForumController {
 	//수정처리
 	@PostMapping("/modify")
 	public String modify(ForumVO forum,@ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
+		
 		if(service.modify(forum)) {
 			rttr.addFlashAttribute("result", "success");
 		}
@@ -73,8 +73,9 @@ public class ForumController {
 	public String remove(@RequestParam("fno") Long fno, 
 			@ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 		
-
-		
+		if(service.remove(fno)) {
+			rttr.addFlashAttribute("result", "success");
+		}
 		return "redirect:/forum/list"+cri.getListLink();
 	}
 	

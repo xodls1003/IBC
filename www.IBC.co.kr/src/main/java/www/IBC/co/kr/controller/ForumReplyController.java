@@ -18,7 +18,7 @@ import www.IBC.co.kr.domain.ForumReplyPageDTO;
 import www.IBC.co.kr.domain.ForumReplyVO;
 import www.IBC.co.kr.service.ForumReplyService;
 
-@RequestMapping("/forum/replies/*")
+@RequestMapping("/forum/replies/")
 @RestController
 @AllArgsConstructor
 public class ForumReplyController {

@@ -19,7 +19,7 @@ public interface ForumMapper {
 	
 	public ForumVO read(Long fno);
 	
-	public int delete (Long bno);
+	public int delete (Long fno);
 	
 	public int update (ForumVO forum);
 	

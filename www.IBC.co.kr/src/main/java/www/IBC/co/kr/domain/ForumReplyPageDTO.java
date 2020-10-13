@@ -11,7 +11,7 @@ import lombok.Getter;
 @Getter
 public class ForumReplyPageDTO {
 	
-	private int replyCnt;
+	private int FreplyCnt;
 	private List<ForumReplyVO> list;
 	
 }

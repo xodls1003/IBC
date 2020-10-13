@@ -59,7 +59,6 @@ fno > 0 and rownum <= 100
 <update id="update">
 	update tbl_forum
 	set ftitle=#{ftitle},
-	fsort= 0,
 	fcontent=#{fcontent},
 	fwriter=#{fwriter}
 	where fno=#{fno}

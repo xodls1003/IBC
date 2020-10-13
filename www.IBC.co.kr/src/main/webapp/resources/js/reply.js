@@ -7,7 +7,7 @@ var replyService = (function() {
 
 		$.ajax({
 			type : 'post',
-			url : '/www.IBC.co.kr/forum/replies/new',
+			url : '/forum/replies/new',
 			data : JSON.stringify(reply),
 			contentType : "application/json; charset=utf-8",
 			success : function(result, status, xhr) {
@@ -23,35 +23,16 @@ var replyService = (function() {
 		})
 	}
 
-//	function getList(param, callback, error) {
-//
-//		var fno = param.fno;
-//		var page = param.page || 1;
-//
-//		$.getJSON("/www.IBC.co.kr/forum/replies/pages/" + fno + "/" + page + ".json",
-//				function(data) {
-//					if (callback) {
-//						callback(data);
-//					}
-//				}).fail(function(xhr, status, err) {
-//			if (error) {
-//				error();
-//			}
-//		});
-//	}
-	
-	
 
 	function getList(param, callback, error) {
-
+		
 	    var fno = param.fno;
 	    var page = param.page || 1;
-	    
-	    $.getJSON("/www.IBC.co.kr/forum/replies/pages/" + fno + "/" + page + ".json",
+	    console.log("getlist..");
+	    $.getJSON("/forum/replies/pages/" + fno + "/" + page + ".json",
 	        function(data) {
 	    	
 	          if (callback) {
-	            //callback(data); // 댓글 목록만 가져오는 경우 
 	            callback(data.fReplyCnt, data.list); //댓글 숫자와 목록을 가져오는 경우 
 	          }
 	        }).fail(function(xhr, status, err) {
@@ -65,7 +46,7 @@ var replyService = (function() {
 	function remove(frno, callback, error) {
 		$.ajax({
 			type : 'delete',
-			url : '/www.IBC.co.kr/forum/replies/' + frno,
+			url : '/forum/replies/' + frno,
 			success : function(deleteResult, status, xhr) {
 				if (callback) {
 					callback(deleteResult);
@@ -81,11 +62,10 @@ var replyService = (function() {
 
 	function update(reply, callback, error) {
 
-		console.log("FRNO: " + reply.frno);
 
 		$.ajax({
 			type : 'put',
-			url : '/www.IBC.co.kr/forum/replies/' + reply.frno,
+			url : '/forum/replies/' + reply.frno,
 			data : JSON.stringify(reply),
 			contentType : "application/json; charset=utf-8",
 			success : function(result, status, xhr) {
@@ -103,7 +83,7 @@ var replyService = (function() {
 
 	function get(frno, callback, error) {
 
-		$.get("/www.IBC.co.kr/forum/replies/" + frno + ".json", function(result) {
+		$.get("/forum/replies/" + frno + ".json", function(result) {
 
 			if (callback) {
 				callback(result);

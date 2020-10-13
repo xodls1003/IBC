@@ -48,7 +48,7 @@
 
 <div class="form-group">
   <label>Writer</label> 
-  <input class="form-control" name='writer'
+  <input class="form-control" name='fwriter'
     value='<c:out value="${forum.fwriter}"/>' readonly="readonly">            
 </div>
 

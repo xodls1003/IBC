@@ -238,13 +238,9 @@ $(document).ready(function () {
     
     function showList(page){
     	
-    	console.log("show list " + page);
-        
         replyService.getList({fno:fnoValue,page: page|| 1 }, function(fReplyCnt, list) {
           
-        console.log("replyCnt: "+ replyCnt );
-        console.log("list: " + list);
-        console.log(list);
+ 
         
         if(page == -1){
           pageNum = Math.ceil(fReplyCnt/10.0);
@@ -259,7 +255,7 @@ $(document).ready(function () {
          }
          
          for (var i = 0, len = list.length || 0; i < len; i++) {
-           str +="<li class='left clearfix' data-rno='"+list[i].frno+"'>";
+           str +="<li class='left clearfix' data-frno='"+list[i].frno+"'>";
            str +="  <div><div class='header'><strong class='primary-font'>["
         	   +list[i].frno+"] "+list[i].frwriter+"</strong>"; 
            str +="    <small class='pull-right text-muted'>"
@@ -288,7 +284,7 @@ $(document).ready(function () {
       var next = false;
       
       if(endNum * 10 >= fReplyCnt){
-        endNum = Math.ceil(replyCnt/10.0);
+        endNum = Math.ceil(fReplyCnt/10.0);
       }
       
       if(endNum * 10 < fReplyCnt){
@@ -316,14 +312,11 @@ $(document).ready(function () {
       
       str += "</ul></div>";
       
-      console.log(str);
-      
       replyPageFooter.html(str);
     }
      
     replyPageFooter.on("click","li a", function(e){
         e.preventDefault();
-        console.log("page click");
         
         var targetPageNum = $(this).attr("href");
         
@@ -363,7 +356,7 @@ $(document).ready(function () {
       
     });
     
-
+	//댓글 등록
     modalRegisterBtn.on("click",function(e){
       
       var reply = {
@@ -413,7 +406,7 @@ $(document).ready(function () {
 
     modalModBtn.on("click", function(e){
     	  
-   	  var reply = {rno:modal.data("rno"), reply: modalInputReply.val()};
+   	  var reply = {frno:modal.data("frno"), reply: modalInputReply.val()};
    	  
    	  replyService.update(reply, function(result){
    	        

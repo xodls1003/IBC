@@ -2,24 +2,22 @@ package www.IBC.co.kr.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import lombok.Setter;
+import lombok.AllArgsConstructor;
 import www.IBC.co.kr.domain.Criteria;
 import www.IBC.co.kr.domain.ForumReplyPageDTO;
 import www.IBC.co.kr.domain.ForumReplyVO;
 import www.IBC.co.kr.mapper.ForumMapper;
 import www.IBC.co.kr.mapper.ForumReplyMapper;
 
+@AllArgsConstructor
 @Service
 public class ForumReplyServiceImpl implements ForumReplyService {
 	
-	@Setter(onMethod_ =@Autowired)
-	private ForumReplyMapper mapper;
 	
-	@Setter(onMethod_ =@Autowired)
+	private ForumReplyMapper mapper;
 	private ForumMapper forumMapper;
 	
 	@Transactional
