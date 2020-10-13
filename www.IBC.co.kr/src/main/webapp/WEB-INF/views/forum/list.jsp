@@ -36,29 +36,26 @@
 						</tr>
 					</thead>
 
-          <c:forEach items="${list}" var="forum">
-            <tr>
-              <td><c:out value="${forum.fno}" /></td>
-               <td>
-                  <a class='move' href='
-                  <c:out value="${forum.fno}"/>'>
-                  <c:out value="${forum.ftitle}" />   
-                  <b>[  <c:out value="${forum.forumReplyCnt}" />  ]</b>
-                  </a>
-              <td><c:out value="${forum.fwriter}" /></td>
-              <td><fmt:formatDate pattern="yyyy-MM-dd"
-                  value="${forum.fregdate}" /></td>
-                 <td><c:out value="${forum.flike}" /></td>
-                 <td><c:out value="${forum.fviews}"/></td>
-            </tr>
-          </c:forEach>
+					<c:forEach items="${list}" var="forum">
+						<tr>
+							<td><c:out value="${forum.fno}" /></td>
+							<td><a class='move' href=' <c:out value="${forum.fno}"/>'>
+									<c:out value="${forum.ftitle}" /> <%-- <b>[  <c:out value="${forum.fReplyCnt}" />  ]</b> --%>
+							</a>
+							<td><c:out value="${forum.fwriter}" /></td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd"
+									value="${forum.fregdate}" /></td>
+							<td><c:out value="${forum.flike}" /></td>
+							<td><c:out value="${forum.fviews}" /></td>
+						</tr>
+					</c:forEach>
 
 				</table>
 
 				<div class='row'>
 					<div class="col-lg-12">
 
-						<form id='searchForm' action="/forum/list" method='get'>
+						<form id='searchForm' action="/www.IBC.co.kr/forum/list" method='get'>
 							<select name='type'>
 								<option value=""
 									<c:out value="${pageMaker.cri.type == null?'selected':''}"/>>--</option>
@@ -99,7 +96,7 @@
 
 						<c:forEach var="num" begin="${pageMaker.startPage}"
 							end="${pageMaker.endPage}">
-							<li class="paginate_button  ${pageMaker.cri.pageNum == num ? " active":""} ">
+							<li class="paginate_button  ${pageMaker.cri.pageNum == num ? "active":""}">
 								<a href="${num}">${num}</a>
 							</li>
 						</c:forEach>
@@ -115,7 +112,7 @@
 				<!--  end Pagination -->
 			</div>
 
-			<form id='actionForm' action="/forum/list" method='get'>
+			<form id='actionForm' action="/www.IBC.co.kr/forum/list" method='get'>
 				<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
 				<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
 
@@ -194,20 +191,16 @@
 
 						$("#regBtn").on("click", function() {
 
-							self.location = "/forum/register";
+							self.location = "/www.IBC.co.kr/forum/register";
 
 						});
 
 						var actionForm = $("#actionForm");
 
-						$(".paginate_button a").on(
-								"click",
+						$(".paginate_button a").on("click",
 								function(e) {
 
 									e.preventDefault();
-
-									console.log('click');
-
 									actionForm.find("input[name='pageNum']")
 											.val($(this).attr("href"));
 									actionForm.submit();
@@ -225,7 +218,7 @@
 																	"href")
 															+ "'>");
 											actionForm.attr("action",
-													"/forum/get");
+													"/www.IBC.co.kr/forum/get");
 											actionForm.submit();
 
 										});

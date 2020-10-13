@@ -7,7 +7,7 @@
 
 <div class="row">
   <div class="col-lg-12">
-    <h1 class="page-header">Board Modify</h1>
+    <h1 class="page-header">Forum Modify</h1>
   </div>
   <!-- /.col-lg-12 -->
 </div>
@@ -17,11 +17,11 @@
   <div class="col-lg-12">
     <div class="panel panel-default">
 
-      <div class="panel-heading">Board Modify</div>
+      <div class="panel-heading">Forum Modify</div>
       <!-- /.panel-heading -->
       <div class="panel-body">
 
-      <form role="form" action="/board/modify" method="post">
+      <form role="form" action="/www.IBC.co.kr/forum/modify" method="post">
       
         <input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum }"/>'>
         <input type='hidden' name='amount' value='<c:out value="${cri.amount }"/>'>
@@ -30,41 +30,33 @@
       
  
 <div class="form-group">
-  <label>Bno</label> 
-  <input class="form-control" name='bno' 
-     value='<c:out value="${board.bno }"/>' readonly="readonly">
+  <label>Fno</label> 
+  <input class="form-control" name='fno' 
+     value='<c:out value="${forum.fno }"/>' readonly="readonly">
 </div>
 
 <div class="form-group">
   <label>Title</label> 
-  <input class="form-control" name='title' 
-    value='<c:out value="${board.title }"/>' >
+  <input class="form-control" name='ftitle' 
+    value='<c:out value="${forum.ftitle }"/>' >
 </div>
 
 <div class="form-group">
   <label>Text area</label>
-  <textarea class="form-control" rows="3" name='content' ><c:out value="${board.content}"/></textarea>
+  <textarea class="form-control" rows="3" name='fcontent' ><c:out value="${forum.fcontent}"/></textarea>
 </div>
 
 <div class="form-group">
   <label>Writer</label> 
   <input class="form-control" name='writer'
-    value='<c:out value="${board.writer}"/>' readonly="readonly">            
+    value='<c:out value="${forum.fwriter}"/>' readonly="readonly">            
 </div>
 
 <div class="form-group">
   <label>RegDate</label> 
-  <input class="form-control" name='regDate'
-    value='<fmt:formatDate pattern = "yyyy/MM/dd" value = "${board.regdate}" />'  readonly="readonly">            
+  <input class="form-control" name='fregDate'
+    value='<fmt:formatDate pattern = "yyyy/MM/dd" value = "${forum.fregdate}" />'  readonly="readonly">            
 </div>
-
-<div class="form-group">
-  <label>Update Date</label> 
-  <input class="form-control" name='updateDate'
-    value='<fmt:formatDate pattern = "yyyy/MM/dd" value = "${board.updateDate}" />'  readonly="readonly">            
-</div>
-
-          
 
   <button type="submit" data-oper='modify' class="btn btn-default">Modify</button>
   <button type="submit" data-oper='remove' class="btn btn-danger">Remove</button>
@@ -180,11 +172,11 @@ $(document).ready(function() {
 	    console.log(operation);
 	    
 	    if(operation === 'remove'){
-	      formObj.attr("action", "/board/remove");
+	      formObj.attr("action", "/www.IBC.co.kr/forum/remove");
 	      
 	    }else if(operation === 'list'){
 	      //move to list
-	      formObj.attr("action", "/board/list").attr("method","get");
+	      formObj.attr("action", "/www.IBC.co.kr/forum/list").attr("method","get");
 	      
 	      var pageNumTag = $("input[name='pageNum']").clone();
 	      var amountTag = $("input[name='amount']").clone();
@@ -231,9 +223,9 @@ $(document).ready(function() {
 $(document).ready(function() {
   (function(){
     
-    var bno = '<c:out value="${board.bno}"/>';
+    var bno = '<c:out value="${forum.fno}"/>';
     
-    $.getJSON("/board/getAttachList", {bno: bno}, function(arr){
+    $.getJSON("/www.IBC.co.kr/forum/getAttachList", {fno: fno}, function(arr){
     
       console.log(arr);
       
@@ -320,7 +312,7 @@ $(document).ready(function() {
     }
     
     $.ajax({
-      url: '/uploadAjaxAction',
+      url: '/www.IBC.co.kr/forum/uploadAjaxAction',
       processData: false, 
       contentType: false,data: 
       formData,type: 'POST',

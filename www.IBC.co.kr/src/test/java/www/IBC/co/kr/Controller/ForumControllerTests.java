@@ -19,13 +19,12 @@ import lombok.extern.log4j.Log4j;
 
 // Test for Controller
 @WebAppConfiguration
-
 @ContextConfiguration({ "file:src/main/webapp/WEB-INF/spring/root-context.xml",
 		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
 @Log4j
 public class ForumControllerTests {
 
-	@Setter(onMethod_ = { @Autowired })
+	@Setter(onMethod_ = {@Autowired})
 	private WebApplicationContext ctx;
 
 	private MockMvc mockMvc;
@@ -35,13 +34,14 @@ public class ForumControllerTests {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
 
-	/*
-	 * @Test public void testList() throws Exception {
-	 * 
-	 * log.info(
-	 * mockMvc.perform(MockMvcRequestBuilders.get("/forum/list")).andReturn().
-	 * getModelAndView().getModelMap()); }
-	 */
+	
+	  @Test public void testList() throws Exception {
+	  
+	  log.info(
+	  mockMvc.perform(MockMvcRequestBuilders.get("/forum/list")).andReturn().
+	  getModelAndView().getModelMap()); }
+	 
+	 
 	
 	
 	
@@ -49,39 +49,40 @@ public class ForumControllerTests {
 	  public void tetGet() throws Exception {
 	  
 	  log.info(mockMvc.perform(MockMvcRequestBuilders.get("/forum/get").param(
-	  "fno", "2")).andReturn() .getModelAndView().getModelMap()); }
+	 "fno", "2")).andReturn() .getModelAndView().getModelMap()); }
 	 
 
-	/*
-	 * @Test public void testModify() throws Exception {
-	 * 
-	 * String resultPage = mockMvc
-	 * .perform(MockMvcRequestBuilders.post("/forum/modify").param("fno",
-	 * "1").param("ftitle", "수정된 테스트 새글 제목") .param("fcontent",
-	 * "수정된 테스트 새글 내용").param("fwriter", "user00"))
-	 * .andReturn().getModelAndView().getViewName();
-	 * 
-	 * log.info(resultPage);
-	 * 
-	 * }
-	 */
+	
+	  @Test 
+	  public void testModify() throws Exception {
+	  
+	  String resultPage = mockMvc
+	  .perform(MockMvcRequestBuilders.post("/forum/modify").param("fno",
+	  "1").param("ftitle", "수정된 테스트 새글 제목") .param("fcontent",
+	  "수정된 테스트 새글 내용").param("fwriter", "user00"))
+	  .andReturn().getModelAndView().getViewName();
+	  
+	  log.info(resultPage);
+	  
+	 }
+	 
 
-	/*
-	 * @Test public void testRemove() throws Exception { // 삭제전 데이터베이스에 게시물 번호 확인할 것
-	 * String resultPage =
-	 * mockMvc.perform(MockMvcRequestBuilders.post("/board/remove").param("bno",
-	 * "25")).andReturn() .getModelAndView().getViewName();
-	 * 
-	 * log.info(resultPage); }
-	 */
+	
+	  @Test public void testRemove() throws Exception { // 삭제전 데이터베이스에 게시물 번호 확인할 것
+	  String resultPage =
+	  mockMvc.perform(MockMvcRequestBuilders.post("/forum/remove").param("fno",
+	  "25")).andReturn() .getModelAndView().getViewName();
+	 
+	 log.info(resultPage); }
+	 
 
-	/*
-	 * @Test public void testListPaging() throws Exception {
-	 * 
-	 * log.info(mockMvc.perform( MockMvcRequestBuilders.get("/forum/list")
-	 * .param("pageNum", "2") .param("amount", "50"))
-	 * .andReturn().getModelAndView().getModelMap()); }
-	 */
+	
+	 @Test public void testListPaging() throws Exception {
+	  
+	 log.info(mockMvc.perform( MockMvcRequestBuilders.get("/forum/list")
+	 .param("pageNum", "2") .param("amount", "50"))
+	 .andReturn().getModelAndView().getModelMap()); }
+	 
 }
 
 

@@ -21,35 +21,42 @@ public class ForumMapperTests {
 	@Setter(onMethod_ = @Autowired)
 	private ForumMapper mapper;
 	
-	/*
-	 * @Test public void testGetList() { mapper.getList().forEach(forum->
-	 * log.info(forum)); }
-	 * 
-	 * @Test public void testInsert() { ForumVO forum = new ForumVO();
-	 * forum.setFtitle("새로 작성하는 글"); forum.setFsort(0);
-	 * forum.setFcontent("새로 작성하는 내용"); forum.setFwriter("Taein");
-	 * 
-	 * mapper.insert(forum); log.info(forum); }
-	 * 
-	 * @Test public void testInsertSelectKey() { ForumVO forum = new ForumVO();
-	 * forum.setFtitle("selectkey 이용해서 새로 작성하는 글"); forum.setFsort(0);
-	 * forum.setFcontent("selectkey화용해서 새로 작성하는 글"); forum.setFwriter("taein"); }
-	 * 
-	 * @Test public void testRead() {
-	 * 
-	 * ForumVO forum = mapper.read(5L);
-	 * 
-	 * log.info(forum); }
-	 * 
-	 * @Test public void testDelete() { log.info("DELTE COUNT: " +
-	 * mapper.delete(3L)); }
-	 * 
-	 * @Test public void testUpdate() { ForumVO forum = new ForumVO();
-	 * forum.setFno(5L); forum.setFtitle("수정된 제목"); forum.setFcontent("수정된 내용");
-	 * forum.setFwriter("tain");
-	 * 
-	 * int count = mapper.update(forum); log.info("UPDATE COUNT: " + count); }
-	 */
+	
+	  @Test 
+	  public void testGetList() { 
+		  Criteria cri = new Criteria();
+		
+		  mapper.getListWithPaging(cri).forEach(forum->
+	  log.info(forum)); 
+		  log.info("테스트 로그");  
+	  }
+	  
+	  
+	  @Test public void testInsert() { ForumVO forum = new ForumVO();
+	  forum.setFtitle("새로 작성하는 글"); forum.setFsort(0);
+	  forum.setFcontent("새로 작성하는 내용"); forum.setFwriter("Taein");
+	  
+	  mapper.insert(forum); log.info(forum); }
+	  
+	  @Test public void testInsertSelectKey() { ForumVO forum = new ForumVO();
+	 forum.setFtitle("selectkey 이용해서 새로 작성하는 글"); forum.setFsort(0);
+	  forum.setFcontent("selectkey화용해서 새로 작성하는 글"); forum.setFwriter("taein"); }
+	 
+	 @Test public void testRead() {
+	 
+	 ForumVO forum = mapper.read(5L);
+	 
+	 log.info(forum); }
+	 
+	  @Test public void testDelete() { log.info("DELTE COUNT: " +
+	 mapper.delete(3L)); }
+	  
+	 @Test public void testUpdate() { ForumVO forum = new ForumVO();
+	 forum.setFno(5L); forum.setFtitle("수정된 제목"); forum.setFcontent("수정된 내용");
+	 forum.setFwriter("tain");
+	  
+	 int count = mapper.update(forum); log.info("UPDATE COUNT: " + count); }
+	 
 	@Test
 	public void testPaging() {
 		Criteria cri = new Criteria();

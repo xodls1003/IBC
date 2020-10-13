@@ -7,7 +7,7 @@ var replyService = (function() {
 
 		$.ajax({
 			type : 'post',
-			url : '/replies/new',
+			url : '/www.IBC.co.kr/forum/replies/new',
 			data : JSON.stringify(reply),
 			contentType : "application/json; charset=utf-8",
 			success : function(result, status, xhr) {
@@ -25,10 +25,10 @@ var replyService = (function() {
 
 //	function getList(param, callback, error) {
 //
-//		var bno = param.bno;
+//		var fno = param.fno;
 //		var page = param.page || 1;
 //
-//		$.getJSON("/replies/pages/" + bno + "/" + page + ".json",
+//		$.getJSON("/www.IBC.co.kr/forum/replies/pages/" + fno + "/" + page + ".json",
 //				function(data) {
 //					if (callback) {
 //						callback(data);
@@ -44,15 +44,15 @@ var replyService = (function() {
 
 	function getList(param, callback, error) {
 
-	    var bno = param.bno;
+	    var fno = param.fno;
 	    var page = param.page || 1;
 	    
-	    $.getJSON("/replies/pages/" + bno + "/" + page + ".json",
+	    $.getJSON("/www.IBC.co.kr/forum/replies/pages/" + fno + "/" + page + ".json",
 	        function(data) {
 	    	
 	          if (callback) {
 	            //callback(data); // 댓글 목록만 가져오는 경우 
-	            callback(data.replyCnt, data.list); //댓글 숫자와 목록을 가져오는 경우 
+	            callback(data.fReplyCnt, data.list); //댓글 숫자와 목록을 가져오는 경우 
 	          }
 	        }).fail(function(xhr, status, err) {
 	      if (error) {
@@ -62,10 +62,10 @@ var replyService = (function() {
 	  }
 
 	
-	function remove(rno, callback, error) {
+	function remove(frno, callback, error) {
 		$.ajax({
 			type : 'delete',
-			url : '/replies/' + rno,
+			url : '/www.IBC.co.kr/forum/replies/' + frno,
 			success : function(deleteResult, status, xhr) {
 				if (callback) {
 					callback(deleteResult);
@@ -81,11 +81,11 @@ var replyService = (function() {
 
 	function update(reply, callback, error) {
 
-		console.log("RNO: " + reply.rno);
+		console.log("FRNO: " + reply.frno);
 
 		$.ajax({
 			type : 'put',
-			url : '/replies/' + reply.rno,
+			url : '/www.IBC.co.kr/forum/replies/' + reply.frno,
 			data : JSON.stringify(reply),
 			contentType : "application/json; charset=utf-8",
 			success : function(result, status, xhr) {
@@ -101,9 +101,9 @@ var replyService = (function() {
 		});
 	}
 
-	function get(rno, callback, error) {
+	function get(frno, callback, error) {
 
-		$.get("/replies/" + rno + ".json", function(result) {
+		$.get("/www.IBC.co.kr/forum/replies/" + frno + ".json", function(result) {
 
 			if (callback) {
 				callback(result);

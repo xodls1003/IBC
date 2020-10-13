@@ -15,7 +15,7 @@ import www.IBC.co.kr.mapper.ForumMapper;
 @Service
 public class ForumServiceImpl implements ForumService{
 	
-	@Setter(onMethod_ = @Autowired)
+	@Autowired
 	private ForumMapper mapper;
 	
 	@Transactional

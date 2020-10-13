@@ -7,7 +7,7 @@
 
 <div class="row">
   <div class="col-lg-12">
-    <h1 class="page-header">Board Read</h1>
+    <h1 class="page-header">Forum Read</h1>
   </div>
   <!-- /.col-lg-12 -->
 </div>
@@ -17,47 +17,39 @@
   <div class="col-lg-12">
     <div class="panel panel-default">
 
-      <div class="panel-heading">Board Read Page</div>
+      <div class="panel-heading">Forum Read Page</div>
       <!-- /.panel-heading -->
       <div class="panel-body">
 
           <div class="form-group">
-          <label>Bno</label> <input class="form-control" name='bno'
-            value='<c:out value="${board.bno }"/>' readonly="readonly">
+          <label>Fno</label> <input class="form-control" name='fno'
+            value='<c:out value="${forum.fno }"/>' readonly="readonly">
         </div>
 
         <div class="form-group">
-          <label>Title</label> <input class="form-control" name='title'
-            value='<c:out value="${board.title }"/>' readonly="readonly">
+          <label>Title</label> <input class="form-control" name='ftitle'
+            value='<c:out value="${forum.ftitle }"/>' readonly="readonly">
         </div>
 
         <div class="form-group">
           <label>Text area</label>
-          <textarea class="form-control" rows="3" name='content'
-            readonly="readonly"><c:out value="${board.content}" /></textarea>
+          <textarea class="form-control" rows="3" name='fcontent'
+            readonly="readonly"><c:out value="${forum.fcontent}" /></textarea>
         </div>
 
         <div class="form-group">
-          <label>Writer</label> <input class="form-control" name='writer'
-            value='<c:out value="${board.writer }"/>' readonly="readonly">
+          <label>Writer</label> <input class="form-control" name='fwriter'
+            value='<c:out value="${forum.fwriter }"/>' readonly="readonly">
         </div>
 
-<%-- 		<button data-oper='modify' class="btn btn-default">
-        <a href="/board/modify?bno=<c:out value="${board.bno}"/>">Modify</a></button>
-        <button data-oper='list' class="btn btn-info">
-        <a href="/board/list">List</a></button> --%>
 
 
 <button data-oper='modify' class="btn btn-default">Modify</button>
 <button data-oper='list' class="btn btn-info">List</button>
 
-<%-- <form id='operForm' action="/boad/modify" method="get">
-  <input type='hidden' id='bno' name='bno' value='<c:out value="${board.bno}"/>'>
-</form> --%>
 
-
-<form id='operForm' action="/boad/modify" method="get">
-  <input type='hidden' id='bno' name='bno' value='<c:out value="${board.bno}"/>'>
+<form id='operForm' action="/www.IBC.co.kr/forum/modify" method="get">
+  <input type='hidden' id='fno' name='fno' value='<c:out value="${forum.fno}"/>'>
   <input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum}"/>'>
   <input type='hidden' name='amount' value='<c:out value="${cri.amount}"/>'>
   <input type='hidden' name='keyword' value='<c:out value="${cri.keyword}"/>'>
@@ -207,15 +199,15 @@
             <div class="modal-body">
               <div class="form-group">
                 <label>Reply</label> 
-                <input class="form-control" name='reply' value='New Reply!!!!'>
+                <input class="form-control" name='frcontent' value='frcontent'>
               </div>      
               <div class="form-group">
                 <label>Replyer</label> 
-                <input class="form-control" name='replyer' value='replyer'>
+                <input class="form-control" name='frwriter' value='frwriter'>
               </div>
               <div class="form-group">
                 <label>Reply Date</label> 
-                <input class="form-control" name='replyDate' value='2018-01-01 13:13'>
+                <input class="form-control" name='frregdate' value='frregdate'>
               </div>
       
             </div>
@@ -239,7 +231,7 @@
 
 $(document).ready(function () {
   
-  var bnoValue = '<c:out value="${board.bno}"/>';
+  var fnoValue = '<c:out value="${forum.fno}"/>';
   var replyUL = $(".chat");
   
     showList(1);
@@ -248,14 +240,14 @@ $(document).ready(function () {
     	
     	console.log("show list " + page);
         
-        replyService.getList({bno:bnoValue,page: page|| 1 }, function(replyCnt, list) {
+        replyService.getList({fno:fnoValue,page: page|| 1 }, function(fReplyCnt, list) {
           
         console.log("replyCnt: "+ replyCnt );
         console.log("list: " + list);
         console.log(list);
         
         if(page == -1){
-          pageNum = Math.ceil(replyCnt/10.0);
+          pageNum = Math.ceil(fReplyCnt/10.0);
           showList(pageNum);
           return;
         }
@@ -267,17 +259,17 @@ $(document).ready(function () {
          }
          
          for (var i = 0, len = list.length || 0; i < len; i++) {
-           str +="<li class='left clearfix' data-rno='"+list[i].rno+"'>";
+           str +="<li class='left clearfix' data-rno='"+list[i].frno+"'>";
            str +="  <div><div class='header'><strong class='primary-font'>["
-        	   +list[i].rno+"] "+list[i].replyer+"</strong>"; 
+        	   +list[i].frno+"] "+list[i].frwriter+"</strong>"; 
            str +="    <small class='pull-right text-muted'>"
-               +replyService.displayTime(list[i].replyDate)+"</small></div>";
-           str +="    <p>"+list[i].reply+"</p></div></li>";
+               +replyService.displayTime(list[i].frregdate)+"</small></div>";
+           str +="    <p>"+list[i].frcontent+"</p></div></li>";
          }
          
          replyUL.html(str);
          
-         showReplyPage(replyCnt);
+         showReplyPage(fReplyCnt);
 
      
        });//end function
@@ -287,7 +279,7 @@ $(document).ready(function () {
     var pageNum = 1;
     var replyPageFooter = $(".panel-footer");
     
-    function showReplyPage(replyCnt){
+    function showReplyPage(fReplyCnt){
       
       var endNum = Math.ceil(pageNum / 10.0) * 10;  
       var startNum = endNum - 9; 
@@ -295,11 +287,11 @@ $(document).ready(function () {
       var prev = startNum != 1;
       var next = false;
       
-      if(endNum * 10 >= replyCnt){
+      if(endNum * 10 >= fReplyCnt){
         endNum = Math.ceil(replyCnt/10.0);
       }
       
-      if(endNum * 10 < replyCnt){
+      if(endNum * 10 < fReplyCnt){
         next = true;
       }
       
@@ -343,35 +335,12 @@ $(document).ready(function () {
       });     
 
     
-/*     function showList(page){
-      
-      replyService.getList({bno:bnoValue,page: page|| 1 }, function(list) {
-        
-        var str="";
-       if(list == null || list.length == 0){
-        
-        replyUL.html("");
-        
-        return;
-      }
-       for (var i = 0, len = list.length || 0; i < len; i++) {
-           str +="<li class='left clearfix' data-rno='"+list[i].rno+"'>";
-           str +="  <div><div class='header'><strong class='primary-font'>"+list[i].replyer+"</strong>"; 
-           str +="    <small class='pull-right text-muted'>"+replyService.displayTime(list[i].replyDate)+"</small></div>";
-           str +="    <p>"+list[i].reply+"</p></div></li>";
-         }
 
-
-    replyUL.html(str);
-
-      });//end function
-      
-   }//end showList */
    
     var modal = $(".modal");
-    var modalInputReply = modal.find("input[name='reply']");
-    var modalInputReplyer = modal.find("input[name='replyer']");
-    var modalInputReplyDate = modal.find("input[name='replyDate']");
+    var modalInputReply = modal.find("input[name='frcontent']");
+    var modalInputReplyer = modal.find("input[name='frwriter']");
+    var modalInputReplyDate = modal.find("input[name='frregdate']");
     
     var modalModBtn = $("#modalModBtn");
     var modalRemoveBtn = $("#modalRemoveBtn");
@@ -398,9 +367,9 @@ $(document).ready(function () {
     modalRegisterBtn.on("click",function(e){
       
       var reply = {
-            reply: modalInputReply.val(),
-            replyer:modalInputReplyer.val(),
-            bno:bnoValue
+            frcontent: modalInputReply.val(),
+            frwriter:modalInputReplyer.val(),
+            fno:fnoValue
           };
       replyService.add(reply, function(result){
         
@@ -420,15 +389,15 @@ $(document).ready(function () {
   //댓글 조회 클릭 이벤트 처리 
     $(".chat").on("click", "li", function(e){
       
-      var rno = $(this).data("rno");
+      var frno = $(this).data("frno");
       
-      replyService.get(rno, function(reply){
+      replyService.get(frno, function(reply){
       
-        modalInputReply.val(reply.reply);
-        modalInputReplyer.val(reply.replyer);
-        modalInputReplyDate.val(replyService.displayTime( reply.replyDate))
+        modalInputReply.val(reply.frcontent);
+        modalInputReplyer.val(reply.frwriter);
+        modalInputReplyDate.val(replyService.displayTime( reply.frregdate))
         .attr("readonly","readonly");
-        modal.data("rno", reply.rno);
+        modal.data("frno", reply.frno);
         
         modal.find("button[id !='modalCloseBtn']").hide();
         modalModBtn.show();
@@ -440,33 +409,7 @@ $(document).ready(function () {
     });
   
     
-/*     modalModBtn.on("click", function(e){
-      
-      var reply = {rno:modal.data("rno"), reply: modalInputReply.val()};
-      
-      replyService.update(reply, function(result){
-            
-        alert(result);
-        modal.modal("hide");
-        showList(1);
-        
-      });
-      
-    });
 
-    modalRemoveBtn.on("click", function (e){
-    	  
-  	  var rno = modal.data("rno");
-  	  
-  	  replyService.remove(rno, function(result){
-  	        
-  	      alert(result);
-  	      modal.modal("hide");
-  	      showList(1);
-  	      
-  	  });
-  	  
-  	}); */
 
     modalModBtn.on("click", function(e){
     	  
@@ -485,9 +428,9 @@ $(document).ready(function () {
 
    	modalRemoveBtn.on("click", function (e){
    	  
-   	  var rno = modal.data("rno");
+   	  var frno = modal.data("frno");
    	  
-   	  replyService.remove(rno, function(result){
+   	  replyService.remove(frno, function(result){
    	        
    	      alert(result);
    	      modal.modal("hide");
@@ -506,57 +449,7 @@ $(document).ready(function () {
 
 <script>
 
-/* console.log("===============");
-console.log("JS TEST");
 
-var bnoValue = '<c:out value="${board.bno}"/>'; */
-
-//for replyService add test
-/* replyService.add(
-    
-    {reply:"JS Test", replyer:"tester", bno:bnoValue}
-    ,
-    function(result){ 
-      alert("RESULT: " + result);
-    }
-); */
-
-
-//reply List Test
-/* replyService.getList({bno:bnoValue, page:1}, function(list){
-    
-	  for(var i = 0,  len = list.length||0; i < len; i++ ){
-	    console.log(list[i]);
-	  }
-});
- */
-
- 
-/*  //17번 댓글 삭제 테스트 
- replyService.remove(17, function(count) {
-
-   console.log(count);
-
-   if (count === "success") {
-     alert("REMOVED");
-   }
- }, function(err) {
-   alert('ERROR...');
- });
- */
- 
-
-//12번 댓글 수정 
-/* replyService.update({
-  rno : 12,
-  bno : bnoValue,
-  reply : "Modified Reply...."
-}, function(result) {
-
-  alert("수정 완료...");
-
-});  
- */
 
 </script>  
 
@@ -568,15 +461,15 @@ $(document).ready(function() {
   
   $("button[data-oper='modify']").on("click", function(e){
     
-    operForm.attr("action","/board/modify").submit();
+    operForm.attr("action","/www.IBC.co.kr/forum/modify").submit();
     
   });
   
     
   $("button[data-oper='list']").on("click", function(e){
     
-    operForm.find("#bno").remove();
-    operForm.attr("action","/board/list")
+    operForm.find("#fno").remove();
+    operForm.attr("action","/www.IBC.co.kr/forum/list")
     operForm.submit();
     
   });  
@@ -591,15 +484,10 @@ $(document).ready(function(){
   
   (function(){
   
-    var bno = '<c:out value="${board.bno}"/>';
+    var fno = '<c:out value="${forum.fno}"/>';
     
-    /* $.getJSON("/board/getAttachList", {bno: bno}, function(arr){
-    
-      console.log(arr);
-      
-      
-    }); *///end getjson
-    $.getJSON("/board/getAttachList", {bno: bno}, function(arr){
+   
+    $.getJSON("/www.IBC.co.kr/forum/getAttachList", {fno: fno}, function(arr){
         
        console.log(arr);
        

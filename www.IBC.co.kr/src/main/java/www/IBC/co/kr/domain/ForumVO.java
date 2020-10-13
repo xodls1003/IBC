@@ -15,5 +15,5 @@ public class ForumVO {
 	private int flike;
 	private Long fviews;
 	private char fshow;
-	private int forumReplyCnt;
+	private int fReplyCnt;
 }
