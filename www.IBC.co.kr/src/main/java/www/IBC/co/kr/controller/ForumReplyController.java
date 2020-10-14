@@ -57,10 +57,9 @@ public class ForumReplyController {
 	
 	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH },
 			value="/{frno}/remove",
-			consumes="application/json",
 			produces={MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> remove(@PathVariable("frno") Long frno){
-		
+	public ResponseEntity<String> remove(
+					@PathVariable("frno") Long frno){
 		
 		return service.remove(frno) == 1
 					? new ResponseEntity<>("success", HttpStatus.OK)

@@ -13,7 +13,7 @@ public interface ForumReplyMapper {
 	
 	public ForumReplyVO read(Long fno);
 	
-	public int delete(Long fno);
+	public int delete(Long frno);
 	
 	public int update (ForumReplyVO reply);
 	

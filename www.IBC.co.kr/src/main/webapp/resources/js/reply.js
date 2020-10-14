@@ -45,7 +45,7 @@ var replyService = (function() {
 	
 	function remove(frno, callback, error) {
 		$.ajax({
-			type : 'delete',
+			type : 'put',
 			url : '/www.IBC.co.kr/forum/replies/' + frno + '/remove' ,
 			success : function(deleteResult, status, xhr) {
 				if (callback) {

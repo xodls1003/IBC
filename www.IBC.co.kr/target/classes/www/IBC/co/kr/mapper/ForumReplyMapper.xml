@@ -21,13 +21,13 @@
 
 	<update id="delete">
 
-		update tbl_freply set frshow="N" where frno = #{frno}
+		update tbl_freply set frshow='N' where frno = #{frno}
 
 	</update>
 
 	<update id="update">
 
-		update tbl_freply set frcontent = #{frcontent,jdbcType=VARCHAR}
+		update tbl_freply set frcontent = #{frcontent}
 		where frno = #{frno}
 
 	</update>

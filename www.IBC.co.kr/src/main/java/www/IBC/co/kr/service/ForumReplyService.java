@@ -14,7 +14,7 @@ public interface ForumReplyService {
 	
 	public int modify(ForumReplyVO vo);
 	
-	public int remove(Long frno);
+	public int remove(Long rno);
 	
 	public List<ForumReplyVO> getList(Criteria cri, Long fno);
 	
