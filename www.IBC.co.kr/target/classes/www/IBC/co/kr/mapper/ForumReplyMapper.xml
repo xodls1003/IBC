@@ -27,7 +27,7 @@
 
 	<update id="update">
 
-		update tbl_freply set frcontent = #{frcontent}
+		update tbl_freply set frcontent = #{frcontent,jdbcType=VARCHAR}
 		where frno = #{frno}
 
 	</update>
@@ -53,14 +53,14 @@
 </select>
 
 
-<select id="getCountByBno" resultType="int">
+<select id="getCountByFno" resultType="int">
 <![CDATA[
 select count(frno) from tbl_freply where fno = #{fno}
 ]]>
 </select>
 
 <update id="updateReplyCnt">
-		update tbl_forum set forumreplycnt = forumreplycnt + #{amount} where fno = #{fno}
+		update tbl_forum set freplycnt = freplycnt + #{amount} where fno = #{fno}
 	</update>
 
 

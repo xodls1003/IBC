@@ -225,7 +225,7 @@
 
 
 
-<script type="text/javascript" src="/resources/js/reply.js"></script>
+<script type="text/javascript" src="/www.IBC.co.kr/resources/js/reply.js"></script>
 
 <script>
 
@@ -388,7 +388,7 @@ $(document).ready(function () {
       
         modalInputReply.val(reply.frcontent);
         modalInputReplyer.val(reply.frwriter);
-        modalInputReplyDate.val(replyService.displayTime( reply.frregdate))
+        modalInputReplyDate.val(replyService.displayTime(reply.frregdate))
         .attr("readonly","readonly");
         modal.data("frno", reply.frno);
         
@@ -406,7 +406,7 @@ $(document).ready(function () {
 
     modalModBtn.on("click", function(e){
     	  
-   	  var reply = {frno:modal.data("frno"), reply: modalInputReply.val()};
+   	  var reply = {frno:modal.data("frno"), frcontent : modalInputReply.val()};
    	  
    	  replyService.update(reply, function(result){
    	        

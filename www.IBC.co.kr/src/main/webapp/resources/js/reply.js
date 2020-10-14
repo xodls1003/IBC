@@ -7,7 +7,7 @@ var replyService = (function() {
 
 		$.ajax({
 			type : 'post',
-			url : '/forum/replies/new',
+			url : '/www.IBC.co.kr/forum/replies/new',
 			data : JSON.stringify(reply),
 			contentType : "application/json; charset=utf-8",
 			success : function(result, status, xhr) {
@@ -29,7 +29,7 @@ var replyService = (function() {
 	    var fno = param.fno;
 	    var page = param.page || 1;
 	    console.log("getlist..");
-	    $.getJSON("/forum/replies/pages/" + fno + "/" + page + ".json",
+	    $.getJSON("/www.IBC.co.kr/forum/replies/pages/" + fno + "/" + page + ".json",
 	        function(data) {
 	    	
 	          if (callback) {
@@ -46,7 +46,7 @@ var replyService = (function() {
 	function remove(frno, callback, error) {
 		$.ajax({
 			type : 'delete',
-			url : '/forum/replies/' + frno,
+			url : '/www.IBC.co.kr/forum/replies/' + frno + '/remove' ,
 			success : function(deleteResult, status, xhr) {
 				if (callback) {
 					callback(deleteResult);
@@ -65,7 +65,7 @@ var replyService = (function() {
 
 		$.ajax({
 			type : 'put',
-			url : '/forum/replies/' + reply.frno,
+			url : '/www.IBC.co.kr/forum/replies/' + reply.frno + '/modify',
 			data : JSON.stringify(reply),
 			contentType : "application/json; charset=utf-8",
 			success : function(result, status, xhr) {
@@ -83,7 +83,7 @@ var replyService = (function() {
 
 	function get(frno, callback, error) {
 
-		$.get("/forum/replies/" + frno + ".json", function(result) {
+		$.get("/www.IBC.co.kr/forum/replies/" + frno + ".json", function(result) {
 
 			if (callback) {
 				callback(result);
