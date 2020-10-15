@@ -2,9 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<script
-	src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
 <%@include file="../includes/header.jsp"%>
+<!-- ckeditor js파일 연결 -->
+<script src="/www.IBC.co.kr/resources/ckeditor/ckeditor.js"></script>
 
 
 <div class="row">
@@ -97,6 +97,13 @@
 	<!-- end panel -->
 </div>
 <!-- /.row -->
+
+<script>
+	CKEDITOR.replace("editor", {
+		filebrowserUploadUrl : "/www.IBC.co.kr/forum/admin/ckUpload"
+		
+	})
+</script>
 		
 
 <!-- <div class="row">

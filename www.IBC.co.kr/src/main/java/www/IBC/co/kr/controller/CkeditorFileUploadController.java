@@ -10,16 +10,16 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.log4j.Log4j;
 
-@Controller
-@RequestMapping("/admin/*")
+@RestController
+@RequestMapping("/forum/admin/*")
 @Log4j
 public class CkeditorFileUploadController {
 
@@ -52,7 +52,7 @@ public class CkeditorFileUploadController {
 			out.flush(); // out에 저장된 데이터를 전송하고 초기화
 
 			printWriter = res.getWriter();
-			String fileUrl = "/ckUpload/" + uid + "_" + fileName; // 작성화면
+			String fileUrl = "/www.IBC.co.kr/forum/admin/ckUpload/" + uid + "_" + fileName; // 작성화면
 
 			printWriter.println("{\"filename\" : \"" + fileName + "\", \"uploaded\" : 1, \"url\":\"" + fileUrl + "\"}");
 
@@ -75,5 +75,9 @@ public class CkeditorFileUploadController {
 
 		return;
 	}
+	 @RequestMapping(value="/ckUpload/{uid}-{fileName}.jpg",method= RequestMethod.GET, consumes="application/json")
+	 public void getCKEditorImgUpload() {
+		 log.info("컨트롤러 잡음");
+	 }
 
 }
