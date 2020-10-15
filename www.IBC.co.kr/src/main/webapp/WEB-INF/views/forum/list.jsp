@@ -40,7 +40,7 @@
 						<tr>
 							<td><c:out value="${forum.fno}" /></td>
 							<td><a class='move' href=' <c:out value="${forum.fno}"/>'>
-									<c:out value="${forum.ftitle}" /> <%-- <b>[  <c:out value="${forum.fReplyCnt}" />  ]</b> --%>
+									<c:out value="${forum.ftitle}" /> <b>[  <c:out value="${forum.freplycnt}" />  ]</b> 
 							</a>
 							<td><c:out value="${forum.fwriter}" /></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd"

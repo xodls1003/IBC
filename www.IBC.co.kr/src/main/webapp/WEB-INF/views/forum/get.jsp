@@ -238,12 +238,12 @@ $(document).ready(function () {
     
     function showList(page){
     	
-        replyService.getList({fno:fnoValue,page: page|| 1 }, function(fReplyCnt, list) {
+        replyService.getList({fno:fnoValue,page: page|| 1 }, function(freplycnt, list) {
           
  
         
         if(page == -1){
-          pageNum = Math.ceil(fReplyCnt/10.0);
+          pageNum = Math.ceil(freplycnt/10.0);
           showList(pageNum);
           return;
         }
@@ -265,7 +265,7 @@ $(document).ready(function () {
          
          replyUL.html(str);
          
-         showReplyPage(fReplyCnt);
+         showReplyPage(freplycnt);
 
      
        });//end function
@@ -275,7 +275,7 @@ $(document).ready(function () {
     var pageNum = 1;
     var replyPageFooter = $(".panel-footer");
     
-    function showReplyPage(fReplyCnt){
+    function showReplyPage(freplycnt){
       
       var endNum = Math.ceil(pageNum / 10.0) * 10;  
       var startNum = endNum - 9; 
@@ -283,11 +283,11 @@ $(document).ready(function () {
       var prev = startNum != 1;
       var next = false;
       
-      if(endNum * 10 >= fReplyCnt){
-        endNum = Math.ceil(fReplyCnt/10.0);
+      if(endNum * 10 >= freplycnt){
+        endNum = Math.ceil(freplycnt/10.0);
       }
       
-      if(endNum * 10 < fReplyCnt){
+      if(endNum * 10 < freplycnt){
         next = true;
       }
       

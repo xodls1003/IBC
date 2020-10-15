@@ -47,6 +47,7 @@
     where fno =  #{fno}
     and frno > 0
     and rownum <= #{cri.pageNum} * #{cri.amount}
+    and frshow='Y'
    ) where rn > (#{cri.pageNum} -1) * #{cri.amount}
 ]]>
 
@@ -55,7 +56,7 @@
 
 <select id="getCountByFno" resultType="int">
 <![CDATA[
-select count(frno) from tbl_freply where fno = #{fno}
+select count(frno) from tbl_freply where fno = #{fno} and frshow='Y'
 ]]>
 </select>
 

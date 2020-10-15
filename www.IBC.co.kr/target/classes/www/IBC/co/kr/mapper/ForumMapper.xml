@@ -67,11 +67,11 @@ fno > 0 and rownum <= 100
 <select id="getListWithPaging" resultType="www.IBC.co.kr.domain.ForumVO">
   <![CDATA[
   select 
-    fno, ftitle,fcontent, fwriter, fregdate, flike, fviews, fReplyCnt
+    fno, ftitle,fcontent, fwriter, fregdate, flike, fviews, freplycnt
   from 
       (
       select /*+ INDEX_DESC(tbl_forum PK_FORUM) */
-        rownum rn, fno, ftitle,fcontent, fwriter, fregdate, flike,fviews,fReplyCnt
+        rownum rn, fno, ftitle,fcontent, fwriter, fregdate, flike,fviews,freplycnt
       from 
         tbl_forum
       where 
@@ -79,9 +79,9 @@ fno > 0 and rownum <= 100
    <include refid="criteria"></include> 
       
   <![CDATA[    
-      rownum <= #{pageNum} * #{amount}
+      rownum <= #{pageNum} * #{amount} and fshow='Y'
       )
-  where rn > (#{pageNum} -1) * #{amount}   
+  where rn > (#{pageNum} -1) * #{amount} 
   ]]>
   </select>
 
@@ -93,12 +93,12 @@ fno > 0 and rownum <= 100
   
     <include refid="criteria"></include> 
     
-  fno > 0  
+  fno > 0  and fshow='Y'
   
   </select>
   
   <update id="updateForumReplyCnt">
-    update tbl_forum set freplycnt = freplycnt + #{amount} where fno = #{fno}
+    update tbl_forum set freplycnt = freplycnt + #{amount} where fno = #{fno} 
   </update>  
   
 

@@ -1,19 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-  pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<script
+	src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
 <%@include file="../includes/header.jsp"%>
 
 
 <div class="row">
-  <div class="col-lg-12">
-    <h1 class="page-header">Board Register</h1>
-  </div>
-  <!-- /.col-lg-12 -->
+	<div class="col-lg-12">
+		<h1 class="page-header">Forum Register</h1>
+	</div>
+	<!-- /.col-lg-12 -->
 </div>
 <!-- /.row -->
 
-	<style>
+<style>
 .uploadResult {
 	width: 100%;
 	background-color: gray;
@@ -38,68 +40,110 @@
 
 <style>
 .bigPictureWrapper {
-  position: absolute;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  top:0%;
-  width:100%;
-  height:100%;
-  background-color: gray; 
-  z-index: 100;
+	position: absolute;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	top: 0%;
+	width: 100%;
+	height: 100%;
+	background-color: gray;
+	z-index: 100;
 }
 
 .bigPicture {
-  position: relative;
-  display:flex;
-  justify-content: center;
-  align-items: center;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 </style>
 
 <div class="row">
-  <div class="col-lg-12">
-    <div class="panel panel-default">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
 
-      <div class="panel-heading">Forum Register</div>
-      <!-- /.panel-heading -->
-      <div class="panel-body">
+			<div class="panel-heading">Forum Register</div>
+			<!-- /.panel-heading -->
+			<div class="panel-body">
 
-        <form role="form" action="/www.IBC.co.kr/forum/register" method="post">
-          <div class="form-group">
-            <label>Title</label> <input class="form-control" name='ftitle'>
-          </div>
+				<form role="form" action="/www.IBC.co.kr/forum/register"
+					method="post">
+					<div class="form-group">
+						<label>Title</label> <input class="form-control" name='ftitle'>
+					</div>
 
-          <div class="form-group">
-            <label>Text area</label>
-            <textarea class="form-control" rows="3" name='fcontent'></textarea>
-          </div>
+					<div class="form-group">
+						<label>Text area</label>
+						<textarea class="form-control" rows="10" name='fcontent'
+							id="editor"></textarea>
 
-          <div class="form-group">
-            <label>Writer</label> <input class="form-control" name='fwriter'>
-          </div>
-          <button type="submit" class="btn btn-default">Submit
-            Button</button>
-          <button type="reset" class="btn btn-default">Reset Button</button>
-        </form>
+					</div>
 
-      </div>
-      <!--  end panel-body -->
+					<div class="form-group">
+						<label>Writer</label> <input class="form-control" name='fwriter'>
+					</div>
+					<button type="submit" class="btn btn-default">Submit
+						Button</button>
+					<button type="reset" class="btn btn-default">Reset Button</button>
+				</form>
 
-    </div>
-    <!--  end panel-body -->
-  </div>
-  <!-- end panel -->
+			</div>
+			<!--  end panel-body -->
+
+		</div>
+		<!--  end panel-body -->
+	</div>
+	<!-- end panel -->
 </div>
 <!-- /.row -->
+			<script>
+			ClassicEditor
+
+			.create( document.querySelector( '#editor' ), {
+
+				language:"ko"
+
+			})
+
+			.then(function (editor) {
+
+				editoro = editor;
+
+				editor.plugins.get("FileRepository").createUploadAdapter = function (loader) {
+
+					return new CustomUploadAdapter(loader, "www.IBC.co.kr/resources/js/adapter.js", function (result) {
+
+						var fileSeq = isEmpty(result[0]) ? "noimage" : result[0];
+
+						var imageUrl = window.location.protocol + "//" + window.location.host + "/image/" + fileSeq;
+
+						return {"default" : imageUrl};
+
+					});
+
+				};
+
+			})
+
+			.catch(function (error) {
+
+				console.log( error );
 
 
-<div class="row">
+			} );
+
+
+
+		
+          	</script>
+
+<!-- <div class="row">
   <div class="col-lg-12">
     <div class="panel panel-default">
 
       <div class="panel-heading">File Attach</div>
-      <!-- /.panel-heading -->
+      /.panel-heading
       <div class="panel-body">
         <div class="form-group uploadDiv">
             <input type="file" name='uploadFile' multiple>
@@ -113,18 +157,115 @@
         
         
       </div>
-      <!--  end panel-body -->
+       end panel-body
 
     </div>
-    <!--  end panel-body -->
+     end panel-body
   </div>
-  <!-- end panel -->
+  end panel
 </div>
-<!-- /.row -->
+/.row -->
 
 <script>
 
 $(document).ready(function(e){
+	
+	var CustomUploadAdapter = function (loader, path, fn_resolve) {
+		this.constructor = function ( loader ) {
+			this.loader = loader;
+			this.path = path;
+			this.fn_resolve = fn_resolve;
+		};
+		this.upload = function () {
+			return new Promise(function (resolve, reject) {
+				this.xhr = ajax_file_upload({
+					loader: loader,
+					resolve: resolve,
+					reject: reject,
+					files: [loader.file],
+					path: path,
+					fn_progress: function (e) {
+						e.lengthComputable && (loader.uploadTotal = e.total, loader.uploaded = e.loaded);
+					},
+					fn_success: function (e) {
+						resolve(fn_resolve && fn_resolve(e));
+					},
+					fn_error: function (e) {
+						reject("upload fail =>" + `${loader.file.name}.`);
+					},
+					fn_abort: reject
+				});
+			});
+		};
+		this.abort = function () {
+			return this.xhr.abort && this.xhr.abort();
+		}
+	};
+
+
+
+	
+	function ajax_file_upload(p) {		
+
+		if (!p.files || !p.loader || !p.path) return new XMLHttpRequest;		
+
+		var formData = new FormData();
+
+		for (var idx in p.files) {
+
+			formData.append("uploadfile", p.files[idx]);
+
+		}
+
+		formData.append("path", p.path);		
+
+		return $.ajax({
+
+			url: '/www.IBC.co.kr/admin/ckUpload',
+
+			processData: false,
+
+			contentType: false,
+
+			data: formData,
+
+			type: 'POST',
+
+			onprogress: function (e) {
+
+				p.fn_progress && p.fn_progress(e);
+
+			},
+
+			success: function(e){
+
+				p.fn_success && p.fn_success(e);
+
+			},
+
+			error: function (e) {
+
+				p.fn_error && p.fn_error;
+
+			},
+
+			abort: function (e) {
+
+				p.fn_abort && p.fn_abort(e);
+
+			}
+
+		});
+
+	}
+
+
+
+
+	
+	
+
+	
 
 
   

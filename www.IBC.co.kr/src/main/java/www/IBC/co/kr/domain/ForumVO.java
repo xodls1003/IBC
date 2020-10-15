@@ -1,6 +1,7 @@
 package www.IBC.co.kr.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -15,5 +16,7 @@ public class ForumVO {
 	private int flike;
 	private Long fviews;
 	private char fshow;
-	private int fReplyCnt;
+	private int freplycnt;
+	
+	private List<BoardAttachVO> attachList;
 }
