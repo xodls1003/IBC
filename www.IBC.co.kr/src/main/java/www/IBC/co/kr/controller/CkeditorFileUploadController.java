@@ -10,6 +10,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -75,9 +76,6 @@ public class CkeditorFileUploadController {
 
 		return;
 	}
-	 @RequestMapping(value="/ckUpload/{uid}-{fileName}.jpg",method= RequestMethod.GET, consumes="application/json")
-	 public void getCKEditorImgUpload() {
-		 log.info("컨트롤러 잡음");
-	 }
+	 
 
 }
