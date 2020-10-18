@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="faqns">
+
+<!-- <select id="list" parameterType="map" resultType="FAQ">
+select * from TBL_FAQ where fno > 0
+	select * from
+	(select a.*, rownum rn from
+	(select * from TBL_FAQ order by fno desc )a )
+	where rn between #{startRow} and #{endRow}
+</select> -->
+<select id="list" parameterType="faq" resultType="faq">
+	select * from
+      (select a.*, rownum rn from 
+    	(select * from tbl_faq 
+    	<where>
+    		<if test="keyword!=null and keyword!=''">
+    			<if test="search=='subcon'">
+    				question like '%'||#{keyword}||'%' or
+    				answer like '%'||#{keyword}||'%'
+    			</if>
+    			<if test="search!='subcon'">
+    				${search} like '%'||#{keyword}||'%'
+    			</if>
+    		</if>
+    	</where>    	
+    	order by fno desc )a )
+    		where rn between #{startRow} and #{endRow}
+</select>
+
+<insert id="insert" parameterType="FAQ">
+	<selectKey keyProperty="fno" order="BEFORE" resultType="integer">
+		select nvl(max(fno),0) + 1 fno from TBL_FAQ
+	</selectKey>
+	insert into TBL_FAQ values(#{fno},#{admin_id},#{question},#{answer},
+	0,sysdate,'n')
+</insert>	
+
+<update id="updateReadCount">
+	update TBL_FAQ set readcount = readcount + 1 where fno=#{fno}
+</update>	
+
+<select id="select"  resultType="FAQ">
+	select * from TBL_FAQ where fno=#{fno}
+</select>
+
+<select id="getTotal" parameterType="FAQ"  resultType="integer">
+	select count(*) from TBL_FAQ  
+		<where>
+    		<if test="keyword!=null and keyword!=''">
+    			<if test="search=='subcon'">
+    				question like '%'||#{keyword}||'%' or
+    				answer like '%'||#{keyword}||'%'
+    			</if>
+    			<if test="search!='subcon'">
+    				${search} like '%'||#{keyword}||'%'
+    			</if>
+    		</if>
+    	</where>   	
+</select>
+
+<update id="update" parameterType="FAQ">
+	update TBL_FAQ set admin_id=#{admin_id},question=#{question},
+		answer=#{answer} where fno=#{fno}
+</update>
+
+<update id="delete" parameterType="integer">
+	update TBL_FAQ set del='y' where fno=#{fno}
+</update>
+</mapper>
