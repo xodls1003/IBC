@@ -17,6 +17,8 @@ public class InstitutionInfoVO {
 	private String ievaluation;
 	private String ihomepage;
 	private String iestablishment;
+	private String isubject;
+	private String iarea;
 	
 
 }

@@ -116,6 +116,57 @@
 
 						})
 
+						link = function() {
+							location.href = "/www.IBC.co.kr/InstitutionInfo/reg";
+						}
+
+						//검색어 작성했을 때 키보드 이벤트발생
+						searchIname.onkeyup = function() {
+
+							var str = "";
+
+							searchIname = $(this).val();
+
+							if (searchIname != "") {
+
+								$("#multiCollapseExample1").show();
+
+								$
+										.getJSON({
+											url : '/check/searchIname/'
+													+ searchIname,
+											success : function(result) {
+												
+												//이벤트가 발생할 때 마다 새로고침하기 위해서
+												$("#searchTbody").html("");
+
+												for (var i = 0; i < result.length; i++) {
+
+													str += "<tr>"
+															+"<td>"
+															+"<img src='/upload/"+result[i].ilogo+"' style='width: 30px; height: 30px' alt='학원로고' class='rounded-circle' />"
+															+ result[i].iname
+															+ "</td>"
+															+"<td>"
+															+ result[i].iaddress
+															+ "</td>"
+															+"<td>"
+															+result[i].ievaluation
+															+"</td>"
+															+ "<td>"
+															+ result[i].isubject
+															+ "</td></tr>";
+
+												}
+
+												$("#searchTbody").append(str);
+												str = "";
+
+											}
+										});
+							}
+						}
+
 					});
 </script>
 <style type="text/css">
@@ -129,24 +180,40 @@
 }
 
 .swiper-container {
-	width: 1200px;
+	width: 1100px;
 	height: 400px;
+}
+
+a.visited {
+	color: black;
+}
+
+a.link {
+	color: black;
+}
+
+a.active {
+	color: black;
+}
+
+a.hover {
+	color: black;
 }
 </style>
 </head>
 <body>
+
+	<div class="container">
+		<h4>
+			<a href="/www.IBC.co.kr/InstitutionInfo/filter">필터링</a> <a
+				href="/www.IBC.co.kr/InstitutionInfo/name">학원명</a>
+		</h4>
+	</div>
 	<div class="searchMenu container">
 		<div class="btn-group" role="group" aria-label="Basic example">
-			<div class="d-flex justify-content-center" style="margin-top: 40px">
-				<p id="pTemp">
-					<a class="btn" data-toggle="collapse" href="#multiCollapseExample1"
-						role="button" aria-expanded="false"
-						aria-controls="multiCollapseExample1" id="subjectBtn">과목선택</a> <a
-						class="btn" data-toggle="collapse" href="#multiCollapseExample2"
-						role="button" aria-expanded="false"
-						aria-controls="multiCollapseExample2" id="areaBtn">지역선택</a>
-
-				</p>
+			<div class="justify-content-center" style="margin-top: 40px">
+				<input class="form-control form-control-lg" type="text"
+					placeholder="학원명을 입력해주세요" id="searchIname">
 			</div>
 		</div>
 
@@ -156,166 +223,110 @@
 				<div class="collapse multi-collapse" id="multiCollapseExample1">
 					<div class="card card-body">
 						<table class="table table-borderless">
+							<tbody id="searchTbody">
 
-							<tbody>
-								<tr>
 
-									<td><input type="checkbox" name="subject"
-										aria-label="Checkbox for following text input"
-										id="checkboxValue" value="IT·프로그래밍"
-										onclick="subjectCheck(this,this.value);"> IT·프로그래밍</td>
-									<td><input type="checkbox" name="subject"
-										aria-label="Checkbox for following text input"
-										id="checkboxValue" value="VR·게임"
-										onclick="subjectCheck(this,this.value);"> VR·게임</td>
-									<td><input type="checkbox" name="subject"
-										aria-label="Checkbox for following text input"
-										id="checkboxValue" value="기계"
-										onclick="subjectCheck(this,this.value);"> 기계</td>
-
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="subject"
-										aria-label="Checkbox for following text input"
-										id="checkboxValue" value="건축·인테리어"
-										onclick="subjectCheck(this,this.value);"> 건축·인테리어</td>
-									<td><input type="checkbox" name="subject"
-										aria-label="Checkbox for following text input"
-										id="checkboxValue" value="웹디자인"
-										onclick="subjectCheck(this,this.value);"> 웹디자인</td>
-									<td><input type="checkbox" name="subject"
-										aria-label="Checkbox for following text input"
-										id="checkboxValue" value="자격증"
-										onclick="subjectCheck(this,this.value);"> 자격증</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="subject"
-										aria-label="Checkbox for following text input"
-										id="checkboxValue" value="편집·크리에이티브"
-										onclick="subjectCheck(this,this.value);"> 편집·크리에이티브</td>
-									<td><input type="checkbox" name="subject"
-										aria-label="Checkbox for following text input"
-										id="checkboxValue" value="세무회계"
-										onclick="subjectCheck(this,this.value);"> 세무회계</td>
-
-								</tr>
 							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- 과목검색 -->
-
-		<!-- 지역검색 -->
-		<div class="row">
-			<div class="col">
-				<div class="collapse multi-collapse" id="multiCollapseExample2">
-					<div class="card card-body">
-						<table class="table table-borderless">
-							<tbody>
-								<tr>
-									<td><input type="checkbox" name="area"
-										aria-label="Checkbox for following text input"
-										id="checkboxValue" value="서울"
-										onclick="areaCheck(this,this.value);"> 서울</td>
-									<td><input type="checkbox" name="area"
-										aria-label="Checkbox for following text input"
-										id="checkboxValue" value="경기"
-										onclick="areaCheck(this,this.value);"> 경기</td>
-									<td><input type="checkbox" name="area"
-										aria-label="Checkbox for following text input"
-										id="checkboxValue" value="인천"
-										onclick="areaCheck(this,this.value);"> 인천</td>
-
-
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="area"
-										aria-label="Checkbox for following text input"
-										id="checkboxValue" value="강원"
-										onclick="areaCheck(this,this.value);"> 강원</td>
-
-									<td><input type="checkbox" name="area"
-										aria-label="Checkbox for following text input"
-										id="checkboxValue" value="충청"
-										onclick="areaCheck(this,this.value);"> 충청</td>
-									<td><input type="checkbox" name="area"
-										aria-label="Checkbox for following text input"
-										id="checkboxValue" value="전라"
-										onclick="areaCheck(this,this.value);"> 전라</td>
-
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="area"
-										aria-label="Checkbox for following text input"
-										id="checkboxValue" value="경상"
-										onclick="areaCheck(this,this.value);"> 경상</td>
-									<td><input type="checkbox" name="area"
-										aria-label="Checkbox for following text input"
-										id="checkboxValue" value="제주"
-										onclick="areaCheck(this,this.value);"> 제주</td>
-
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- 지역검색 -->
 	</div>
 	<!-- 전체 학원 리스트  -->
 	<!-- Slider main container -->
 	<div class="swiper-container">
+		<br />
+		<h3>
+			<b>전체학원목록</b>
+		</h3>
+		<br />
+		<c:out value="${amount }" />
+		개의 학원
+		<button type="button" onclick="link();">임시 학원등록 버튼</button>
 		<!-- Additional required wrapper -->
 		<div class="swiper-wrapper">
 			<!-- Slides -->
-			<div class="swiper-slide">
-				<c:forEach items="${list}" var="list" varStatus="status">
-					<div class="d-flex bd-highlight mb-2"
-						style="float: left; width: 33%; padding: 10px;">
-						<c:out value="${status.current.ino }"></c:out>
-						<c:out value="${status.count }"></c:out>
-						<div class="p-2 bd-highlight">
+			<c:forEach items="${list}" var="list" varStatus="status">
+				<div class="swiper-slide">
+
+					<div class="conatainer">
+						<div class="mx-auto" style="width: 200px;">
+							<img src="/upload/<c:out value='${list.ilogo }'/>" alt="학원로고"
+								class="rounded-circle" />
+						</div>
+						<div class="mx-auto" style="width: 200px;">
 							<c:out value="${list.iname }"></c:out>
 						</div>
-						<div class="p-2 bd-highlight">
+						<div class="mx-auto" style="width: 200px;">
+							<b><c:out value="${list.isubject }"></c:out></b>
+						</div>
+						<div>
 							<c:out value="${list.iintro }"></c:out>
 						</div>
-						<div class="p-2 bd-highlight">
-							<c:out value="${list.iname }"></c:out>
-						</div>
 					</div>
-				</c:forEach>
-
-			</div>
+				</div>
+			</c:forEach>
 
 		</div>
 
 		<!-- If we need navigation buttons -->
 		<div class="swiper-button-prev"></div>
-		<div class="swiper-button-next">
-			<script type="text/javascript">
-				
-			$.ajax({
-			var currentPage = $("#currentPage");
-			
-				currentPage =currentPage.val() + 1;
-
-					url : '/www.IBC.co.kr/InstitutionInfo/filter'+ currentPage,
-					type : 'post',
-					success : function(result) {
-						$(".swiper-slide").clone().appendTo(".swiper-wrapper");
-					}
-				});
-			</script>
-		</div>
+		<div class="swiper-button-next"></div>
 	</div>
+	<!-- 전체 학원 리스트  -->
 
-	<form action="" id="actionForm">
-		<input type="hidden" name="currentPage" id="currentPage" value="${page.currentPage}" />
-	</form>
+
+
+	<!-- best5 리스트  -->
+	<div class="container">
+		<br />
+		<h3>
+			<b>Best5 학원목록</b>
+		</h3>
+		<br />
+		<table class="table table-borderless">
+			<tbody>
+				<c:forEach items="${bestlist }" var="bestlist">
+					<tr>
+						<th scope="row"><img
+							src="/upload/<c:out value='${bestlist.ilogo }'/>"
+							style="width: 60px; height: 60px" alt="학원로고"
+							class="rounded-circle" /><br /> ${bestlist.iname }</th>
+						<td>${bestlist.isubject }</td>
+						<td>${bestlist.iintro }</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
+	<!-- 평점 리스트  -->
+
+	<!-- 최신학원 리스트  -->
+	<div class="container">
+		<br />
+		<h3>
+			<b>최신 학원목록</b>
+		</h3>
+		<br />
+		<table class="table table-borderless">
+			<tbody>
+				<c:forEach items="${newlist }" var="newlist">
+					<tr>
+						<th scope="row"><img
+							src="/upload/<c:out value='${newlist.ilogo }'/>"
+							style="width: 60px; height: 60px" alt="학원로고"
+							class="rounded-circle" /><br /> ${newlist.iname }</th>
+						<td>${newlist.isubject }</td>
+						<td>${newlist.iintro }</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
+	<!-- 최신학원 리스트  -->
+
+
 
 </body>
 </html>

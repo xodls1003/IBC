@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import www.IBC.co.kr.mapper.InstitutionInfoMapper;
+import www.IBC.co.kr.service.InstitutionInfoService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
@@ -19,11 +20,11 @@ public class InstitutionInfoMapperTests {
 	@Setter(onMethod_ = @Autowired)
 	public InstitutionInfoMapper mapper;
 	
+	@Setter(onMethod_ = @Autowired)
+	public InstitutionInfoService service;
+	
 	public InstitutionInfoVO vo;
 	
-	@Test
-	public void listTest() {
-		mapper.list(1, 8).forEach(list -> log.info(list));
-	}
+
 
 }

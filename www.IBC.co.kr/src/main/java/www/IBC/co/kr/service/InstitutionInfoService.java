@@ -17,13 +17,31 @@ public interface InstitutionInfoService {
 	// 학원정보삭제
 	public int removeInfo(Long ino);
 
-	// 학원검색 (지역별 || 과목별 )
-	public List<InstitutionInfoVO> searchInfo(@Param("area") String area, @Param("subject") String subject);
-
 	// 학원정보 페이징 목록
-	public List<InstitutionInfoVO> list(int currentpage, int amount);
+	public List<InstitutionInfoVO> list();
 
 	// 총 학원개수
 	public int listCount();
+
+	// 해당학원정보
+	public InstitutionInfoVO info(String iname);
+
+	// Best5학원정보
+	public List<InstitutionInfoVO> bestList();
+
+	// 최신학원정보 -> 5개만
+	public List<InstitutionInfoVO> newList();
+
+	// 학원이름으로 검색
+	public List<InstitutionInfoVO> searchInameInfo(String iname);
+
+	// 과목으로 검색
+	public List<InstitutionInfoVO> searcIsubjectInfo(String isubject);
+
+	// 지역으로 검색
+	public List<InstitutionInfoVO> searcIareaInfo(String iarea);
+
+	// 과목 과 지역으로 검색
+	public List<InstitutionInfoVO> searcIsubjectANDIareaInfo(String isubject, String iarea);
 
 }

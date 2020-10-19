@@ -4,34 +4,86 @@
 <mapper namespace="www.IBC.co.kr.mapper.InstitutionInfoMapper">
 
 	<insert id="registerInfo">
-		INSERT INTO TBL_InstitutionInfo(INO,INAME,ILOGO,IADDRESS,IPHONENUM,IINTRO,IEVALUATION,IHOMEPAGE,IESTABLISHMENT)
-		VALUES (SEQ_Institution_INFO.nextval,#{iname},#{ilogo},#{iaddress},#{iphonenum},#{iintro},#{ievaluation},#{ihomepage},#{iestablishment})
+		INSERT INTO
+		TBL_InstitutionInfo(INO,INAME,ILOGO,IADDRESS,IPHONENUM,IINTRO,IHOMEPAGE,IESTABLISHMENT,ISUBJECT,IAREA)
+		VALUES
+		(SEQ_Institution_INFO.nextval,#{iname},#{ilogo},#{iaddress},#{iphonenum},#{iintro},#{ihomepage},#{iestablishment},#{isubject},#{iarea})
 	</insert>
-	
+
 	<update id="modifyInfo">
-		update TBL_InstitutionInfo  set INAME = #{iname}, IADDRESS = #{iaddress}, IPHONENUM= #{iphonenum}, IINTRO=#{iintro},
-		IEVALUATION = #{ievaluation}, IHOMEPAGE= #{ihomepage}, IESTABLISHMENT= #{iestablishment} WHERE INO = #{ino}
+		update TBL_InstitutionInfo set INAME = #{iname},
+		IADDRESS = #{iaddress}, IPHONENUM= #{iphonenum}, IINTRO=#{iintro},
+		IEVALUATION = #{ievaluation}, IHOMEPAGE= #{ihomepage}, IESTABLISHMENT=
+		#{iestablishment} WHERE INO = #{ino}
 	</update>
-	
+
 	<delete id="removeInfo">
 		delete from TBL_InstitutionInfo where INO = #{ino}
 	</delete>
-	
-	<select id="searchInfo" resultType="www.IBC.co.kr.domain.InstitutionInfoVO">
+
+	<select id="searchInameInfo"
+		resultType="www.IBC.co.kr.domain.InstitutionInfoVO">
+		<![CDATA[
+			SELECT* FROM tbl_institutioninfo WHERE INAME LIKE '%' || #{INAME} || '%' AND INO > 0
+		]]>
 	</select>
 	
-	<select id="list" resultType="www.IBC.co.kr.domain.InstitutionInfoVO">
+	<select id="searcIsubjectInfo"
+		resultType="www.IBC.co.kr.domain.InstitutionInfoVO">
+		<![CDATA[
+			SELECT* FROM tbl_institutioninfo WHERE (ISUBJECT LIKE '%' ||  #{isubject} || '%' ) AND INO > 0
+		]]>
+	</select>
+	
+	<select id="searcIareaInfo"
+		resultType="www.IBC.co.kr.domain.InstitutionInfoVO">
+		<![CDATA[
+			SELECT* FROM tbl_institutioninfo WHERE (IAREA LIKE '%' || #{iarea} || '%' ) AND INO > 0
+		]]>
+	</select>
+	
+	<select id="searcIsubjectANDIareaInfo"
+		resultType="www.IBC.co.kr.domain.InstitutionInfoVO">
+		<![CDATA[
+			SELECT* FROM tbl_institutioninfo WHERE (ISUBJECT LIKE  #{isubject} AND IAREA LIKE  #{iarea} ) AND INO > 0
+		]]>
+	</select>
+	
+
+
+	<select id="list"
+		resultType="www.IBC.co.kr.domain.InstitutionInfoVO">
 	<![CDATA[
-		SELECT A.* FROM
-			(SELECT /*+INDEX_DESC(i pk_institutioninfo)*/ i.*,ROWNUM rnum FROM tbl_institutioninfo i WHERE ROWNUM <= #{currentpage} * #{amount}  and i.ino > 0) A
-		WHERE A.rnum > (#{currentpage}-1)* #{amount}
+		SELECT /*+INDEX_DESC(i pk_institutioninfo)*/ i.* FROM tbl_institutioninfo i WHERE  i.ino > 0
 	]]>
 	</select>
-	
-	<select id="listCount">
-		SELECT COUNT(INO) FROM TBL_InstitutionInfo
+
+	<select id="listCount" resultType="int">
+		SELECT COUNT(INO) FROM
+		TBL_InstitutionInfo
+	</select>
+
+	<select id="info"
+		resultType="www.IBC.co.kr.domain.InstitutionInfoVO">
+		select * from tbl_institutioninfo where iname = #{iname}
+	</select>
+
+	<select id="bestList" resultType="www.IBC.co.kr.domain.InstitutionInfoVO">
+		<![CDATA[
+		select a.* from(
+			select i.*,ROW_NUMBER() OVER (ORDER BY IEVALUATION DESC) AS RANK from tbl_institutioninfo i) a
+		where RANK<6
+		]]>
 	</select>
 	
+	<select id="newList" resultType="www.IBC.co.kr.domain.InstitutionInfoVO">
+		<![CDATA[
+		select a.* from(
+			select i.*,ROW_NUMBER() OVER (ORDER BY INO DESC) AS RANK from tbl_institutioninfo i) a
+		where RANK<6
+		]]>
+	</select>
+
 
 
 </mapper>

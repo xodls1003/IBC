@@ -29,18 +29,50 @@ public class InstitutionInfoServiceImpl implements InstitutionInfoService {
 	}
 
 	@Override
-	public List<InstitutionInfoVO> searchInfo(String area, String subject) {
-		return mapper.searchInfo(area, subject);
-	}
-
-	@Override
-	public List<InstitutionInfoVO> list(int currentpage, int amount) {
-		return mapper.list(currentpage,amount);
+	public List<InstitutionInfoVO> list() {
+		return mapper.list();
 	}
 
 	@Override
 	public int listCount() {
-		return mapper.hashCode();
+		return mapper.listCount();
 	}
+
+	@Override
+	public InstitutionInfoVO info(String iname) {
+		return mapper.info(iname);
+	}
+
+	@Override
+	public List<InstitutionInfoVO> bestList() {
+		return mapper.bestList();
+	}
+
+	@Override
+	public List<InstitutionInfoVO> newList() {
+		return mapper.newList();
+	}
+
+	@Override
+	public List<InstitutionInfoVO> searchInameInfo(String iname) {
+		return mapper.searchInameInfo(iname);
+	}
+
+	@Override
+	public List<InstitutionInfoVO> searcIsubjectInfo(String isubject) {
+		return mapper.searcIsubjectInfo(isubject);
+	}
+
+	@Override
+	public List<InstitutionInfoVO> searcIareaInfo(String iarea) {
+		return mapper.searcIareaInfo(iarea);
+	}
+
+	@Override
+	public List<InstitutionInfoVO> searcIsubjectANDIareaInfo(String isubject, String iarea) {
+		return mapper.searcIsubjectANDIareaInfo(isubject, iarea);
+	}
+
+	
 
 }
