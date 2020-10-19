@@ -18,5 +18,5 @@ public class ForumVO {
 	private char fshow;
 	private int freplycnt;
 	
-	private List<BoardAttachVO> attachList;
+	private List<FourmAttachVO> fattachList;
 }

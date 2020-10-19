@@ -17,7 +17,7 @@
 		<property name="driverClassName"
 			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 		<property name="jdbcUrl"
-			value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"></property>
+			value="jdbc:log4jdbc:oracle:thin:@localhost:1521:orcl"></property>
 		<property name="username" value="IBC"></property>
 		<property name="password" value="IBC"></property>
 	</bean>
@@ -31,11 +31,11 @@
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSouce"></property>
 	</bean>
-	<!-- <bean id="transactionManager"
+	 <bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"></property>
+		<property name="dataSource" ref="dataSouce"></property>
 	</bean>
-	<tx:annotation-driven /> -->
+	<tx:annotation-driven /> 
 	<mybatis-spring:scan base-package="www.IBC.co.kr.mapper" />
 	<context:component-scan base-package="www.IBC.co.kr">
 	</context:component-scan>
