@@ -1,7 +1,7 @@
 package www.IBC.co.kr.domain;
 
 import java.util.Date;
-import java.util.List;
+
 
 import lombok.Data;
 
@@ -18,5 +18,5 @@ public class ForumVO {
 	private char fshow;
 	private int freplycnt;
 	
-	private List<FourmAttachVO> fattachList;
+
 }
