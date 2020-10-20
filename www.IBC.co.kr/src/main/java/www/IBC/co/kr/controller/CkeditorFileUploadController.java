@@ -5,12 +5,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Locale;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,7 +39,7 @@ public class CkeditorFileUploadController {
 		String uploadPath = "C:\\ckUpload";
 		// 인코딩
 		res.setCharacterEncoding("utf-8");
-		res.setContentType("text/html;charset=utf-8");
+		res.setContentType("application/json;charset=utf-8");
 
 		try {
 
@@ -45,17 +47,19 @@ public class CkeditorFileUploadController {
 			byte[] bytes = upload.getBytes();
 
 			// 업로드 경로
-			String ckUploadPath = uploadPath + File.separator + uid + "_" + fileName;
-
+			String ckUploadPath = uploadPath  +File.separator + uid + "_" + fileName;
+			log.info(ckUploadPath);
 			out = new FileOutputStream(new File(ckUploadPath));
 			out.write(bytes);
 			out.flush(); // out에 저장된 데이터를 전송하고 초기화
-
+			
 			printWriter = res.getWriter();
+			
 			String fileUrl = "/ckUpload/" + uid + "_" + fileName; // 작성화면
-
+			
+			log.info(fileUrl);
 			printWriter.println("{\"filename\" : \"" + fileName + "\", \"uploaded\" : 1, \"url\":\"" + fileUrl + "\"}");
-
+			
 			printWriter.flush();
 
 		} catch (IOException e) {
@@ -75,7 +79,11 @@ public class CkeditorFileUploadController {
 
 		return;
 	}
-
+		
+	
 }
+	
+
+
 	 
 

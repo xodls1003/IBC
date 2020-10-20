@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="../includes/header.jsp"%>
 <!-- ckeditor js파일 연결 -->
-<script src="/www.IBC.co.kr/resources/ckeditor/ckeditor.js"></script>
+<script src="/resources/ckeditor/ckeditor.js"></script>
 
 
 <div class="row">
@@ -27,7 +27,7 @@
 			<!-- /.panel-heading -->
 			<div class="panel-body">
 
-				<form role="form" action="/www.IBC.co.kr/forum/register"
+				<form role="form" action="/forum/register"
 					method="post">
 					<div class="form-group">
 						<label>Title</label> <input class="form-control" name='ftitle'>
@@ -58,11 +58,13 @@
 </div>
 <!-- /.row -->
 <script>
+
  var ckeditor_config = {
    resize_enaleb : false,
    enterMode : CKEDITOR.ENTER_BR,
    shiftEnterMode : CKEDITOR.ENTER_P,
-   filebrowserUploadUrl : "/www.IBC.co.kr/admin/ckUpload"
+   filebrowserUploadUrl : "/admin/ckUpload"
+   
  };
  
  CKEDITOR.replace("editor", ckeditor_config);
