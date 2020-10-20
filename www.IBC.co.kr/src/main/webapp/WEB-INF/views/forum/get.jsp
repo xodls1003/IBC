@@ -31,9 +31,10 @@
             value='<c:out value="${forum.ftitle}"/>' readonly="readonly">
         </div>
 		
-        <div class="form-group">
-        <label>Text area</label>
-        <textarea class="form-control" name='fcontent'  readonly='readonly'>${forum.fcontent}</textarea>
+        <div class="form-group" class="form-control" >
+        <label>Text area</label><br />
+        ${forum.fcontent}
+       
         </div>
         
 
