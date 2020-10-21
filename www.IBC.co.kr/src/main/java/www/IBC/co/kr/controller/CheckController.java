@@ -48,7 +48,7 @@ public class CheckController {
 	}
 
 
-	// 필터 - 지역과 과목
+	// 필터 - 지역 또는 과목
 		@RequestMapping(value = "/searchInfo", method = RequestMethod.POST, consumes = "application/json", produces = {
 				MediaType.APPLICATION_JSON_UTF8_VALUE })
 		public ResponseEntity<List<InstitutionInfoVO>> searcIareaInfoCheck(
@@ -65,12 +65,14 @@ public class CheckController {
 		}
 		
 		
-		@RequestMapping(value = "/searchInfo2", method = RequestMethod.POST, consumes = "application/json", produces = {
+		//필터 - 지역 그리고 과목
+		@RequestMapping(value = "/searchInfo2", method = RequestMethod.POST, consumes = "application/text;charset=UTF-8", produces = {
 				MediaType.APPLICATION_JSON_UTF8_VALUE })
 		public void searcIareaInfoCheck2(
-				@RequestBody String subject, @RequestBody String area) {
+				@RequestBody String vo) {
 			
-			System.out.println("1:"+subject);
+			System.out.println("1:"+vo);
+			
 			
 		}
 

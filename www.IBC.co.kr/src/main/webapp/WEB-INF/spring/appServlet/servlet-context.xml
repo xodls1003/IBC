@@ -28,7 +28,7 @@
 
 	<context:component-scan
 		base-package="www.IBC.co.kr.controller" />
-		
+
 
 	<!-- ck에디터 파일 업로드 경로 -->
 	<resources mapping="/ckUpload/**"
@@ -36,7 +36,7 @@
 
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></beans:bean>
-
+	
 
 
 </beans:beans>

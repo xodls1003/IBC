@@ -103,53 +103,6 @@
 										.append(
 												"<a class='btn' data-toggle='collapse' href='#multiCollapseExample2' role='button' aria-expanded='false' aria-controls='multiCollapseExample2' id='areaBtn'>"
 														+ area + "</a>");
-								
-								var data2 = {
-										subject : subject,
-										area : area
-									};
-								
-								console.log(data2);
-
-								$
-										.ajax({
-											url : '/check/searchInfo2',
-											data : data2,
-											dataType: 'json',
-											contentType : "application/json;charset=UTF-8",
-											type : 'post',
-											success : function(result) {
-												console.log(1);
-												var str = "";
-												console.log(result);
-												str += "<h3><b>"
-														+ result.length
-														+ "개의 검색결과</b></h3>"
-														+ "<table class='table table-borderless'>"
-														+ "<tbody>"
-														+ "</h3></b>";
-												for (var i = 0; i < result.length; i++) {
-													$("#searchDIV").html("");
-
-													str += "<tr>"
-															+ "<th scope='row'><img src='/upload/"+result[i].ilogo +"' style='width: 60px; height: 60px' alt='학원로고' class='rounded-circle' /><br />"
-															+ result[i].iname
-															+ "</th>"
-															+ "<td>"
-															+ result[i].isubject
-															+ "</td>" + "<td>"
-															+ result[i].iintro
-															+ "</td>" + "</tr>"
-
-												}
-
-												str += +"</tbody>" + "</table>";
-
-												$("#searchDIV").append(str);
-
-											}
-
-										});
 
 							}
 						}
@@ -234,23 +187,36 @@
 												"<a class='btn' data-toggle='collapse' href='#multiCollapseExample2' role='button' aria-expanded='false' aria-controls='multiCollapseExample2' id='areaBtn'>"
 														+ area + "</a>");
 
+							}
+						}
+
+						//리셋버튼 이벤트
+						areareset = function() {
+							$("#resetDIV").html("");
+							$("#resetDIV").append(original);
+						}
+
+						//다음버튼 이벤트
+						subjectnext = function() {
+							$("#multiCollapseExample2").show();
+							areanext = function() {
+								
 								var data = {
-									subject : subject,
-									area : area
-								};
+										area : area,
+										subject : subject
+								}
 								
 								console.log(data);
-
 								$
 										.ajax({
 											url : '/check/searchInfo2',
-											data : data,
-											dataType: 'json',
-											contentType : "application/json;charset=UTF-8",
+											data :data,
+											contentType : "application/text;charset=UTF-8",
 											type : 'post',
 											success : function(result) {
+
 												var str = "";
-												console.log(result);
+												
 												str += "<h3><b>"
 														+ result.length
 														+ "개의 검색결과</b></h3>"
@@ -259,8 +225,7 @@
 														+ "</h3></b>";
 												for (var i = 0; i < result.length; i++) {
 													$("#searchDIV").html("");
-
-													str += "<tr>"
+													str += +"<tr>"
 															+ "<th scope='row'><img src='/upload/"+result[i].ilogo +"' style='width: 60px; height: 60px' alt='학원로고' class='rounded-circle' /><br />"
 															+ result[i].iname
 															+ "</th>"
@@ -268,7 +233,7 @@
 															+ result[i].isubject
 															+ "</td>" + "<td>"
 															+ result[i].iintro
-															+ "</td>" + "</tr>"
+															+ "</td>" + "</tr>";
 
 												}
 
@@ -279,17 +244,8 @@
 											}
 
 										});
-
 							}
 						}
-
-						//리셋버튼 이벤트
-						areareset = function() {
-							$("#resetDIV").html("");
-							$("#resetDIV").append(original);
-						}
-						
-						
 
 						var mySwiper = new Swiper('.swiper-container', {
 
@@ -424,10 +380,9 @@ a.hover {
 
 								</tr>
 								<tr>
-									<td align="right"><button
-											onclick="subjectselect();">선택</button></td>
-									<td ><button onclick="subjectreset();">초기화</button></td>
-									<td ><button onclick="subjectnext();">다음</button></td>
+									<td align="right"><button onclick="subjectselect();">선택</button></td>
+									<td><button onclick="subjectreset();">초기화</button></td>
+									<td><button onclick="subjectnext();">다음</button></td>
 								</tr>
 							</tbody>
 						</table>
@@ -488,9 +443,9 @@ a.hover {
 
 								</tr>
 								<tr>
-									<td align="right"><button
-											onclick="areaselect();">선택</button></td>
-									<td ><button onclick="areareset();">초기화</button></td>
+									<td align="right"><button onclick="areaselect();">선택</button></td>
+									<td><button onclick="areareset();">초기화</button></td>
+									<td><button onclick="areanext();">지역과 과목 선택한 버튼</button></td>
 								</tr>
 							</tbody>
 						</table>
