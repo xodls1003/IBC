@@ -49,7 +49,7 @@
 <button data-oper='list' class="btn btn-info">List</button>
 
 
-<form id='operForm' action="/forum/modify" method="get">
+<form id='operForm' action="/www.IBC.co.kr/forum/modify" method="get">
   <input type='hidden' id='fno' name='fno' value='<c:out value="${forum.fno}"/>'>
   <input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum}"/>'>
   <input type='hidden' name='amount' value='<c:out value="${cri.amount}"/>'>
@@ -353,7 +353,7 @@ $(document).ready(function () {
    	      alert(result);
    	      modal.modal("hide");
    	      showList(pageNum);
-   	      
+   	      window.location.reload();
    	  });
    	  
    	});
@@ -379,7 +379,7 @@ $(document).ready(function() {
   
   $("button[data-oper='modify']").on("click", function(e){
     
-    operForm.attr("action","/forum/modify").submit();
+    operForm.attr("action","/www.IBC.co.kr/forum/modify").submit();
     
   });
   
@@ -387,7 +387,7 @@ $(document).ready(function() {
   $("button[data-oper='list']").on("click", function(e){
     
     operForm.find("#fno").remove();
-    operForm.attr("action","/forum/list")
+    operForm.attr("action","/www.IBC.co.kr/forum/list")
     operForm.submit();
     
   });  

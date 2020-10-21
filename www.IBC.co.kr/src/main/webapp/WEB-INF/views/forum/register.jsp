@@ -27,7 +27,7 @@
 			<!-- /.panel-heading -->
 			<div class="panel-body">
 
-				<form role="form" action="/forum/register"
+				<form role="form" action="/www.IBC.co.kr/forum/register"
 					method="post">
 					<div class="form-group">
 						<label>Title</label> <input class="form-control" name='ftitle'>

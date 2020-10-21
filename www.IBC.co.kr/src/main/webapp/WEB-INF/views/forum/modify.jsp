@@ -21,7 +21,7 @@
       <!-- /.panel-heading -->
       <div class="panel-body">
 
-      <form role="form" action="/forum/modify" method="post">
+      <form role="form" action="/www.IBC.co.kr/forum/modify" method="post">
       
         <input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum }"/>'>
         <input type='hidden' name='amount' value='<c:out value="${cri.amount }"/>'>
@@ -95,11 +95,11 @@ $(document).ready(function() {
 	    console.log(operation);
 	    
 	    if(operation === 'remove'){
-	      formObj.attr("action", "/forum/remove");
+	      formObj.attr("action", "/www.IBC.co.kr/forum/remove");
 	      
 	    }else if(operation === 'list'){
 	      //move to list
-	      formObj.attr("action", "/forum/list").attr("method","get");
+	      formObj.attr("action", "/www.IBC.co.kr/forum/list").attr("method","get");
 	      
 	      var pageNumTag = $("input[name='pageNum']").clone();
 	      var amountTag = $("input[name='amount']").clone();

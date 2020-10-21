@@ -16,20 +16,20 @@ import www.IBC.co.kr.domain.PageDTO;
 import www.IBC.co.kr.service.ForumService;
 
 @Controller
-@RequestMapping("/forum/*")
+@RequestMapping("www.IBC.co.kr/forum/*")
 @AllArgsConstructor
 public class ForumController {
 	
 	private ForumService service;
 	
 	@GetMapping("/register")
-	public void register() {
-		
+	public String register() {
+		return "/forum/register";
 	}
 	
 	//페이지 목록
 	@GetMapping("/list")
-	public void list(Criteria cri,Model model) {
+	public String list(Criteria cri,Model model) {
 		
 		model.addAttribute("list",service.getList(cri));
 		
@@ -37,6 +37,7 @@ public class ForumController {
 		  int total = service.getTotal(cri);
 		  
 		  model.addAttribute("pageMaker", new PageDTO(cri,total));
+		  return "/forum/list";
 		 
 	}
 	//글 등록
@@ -47,14 +48,23 @@ public class ForumController {
 		
 		rttr.addFlashAttribute("result", forum.getFno());
 		
-		return "redirect:/forum/list";
+		return "redirect:/www.IBC.co.kr/forum/list";
 	}
 	
-	//글번호 저장
-	@GetMapping({"/get","/modify"})
-	public void get(@RequestParam("fno") Long fno, @ModelAttribute("cri") Criteria cri, Model model) {
+	//글내용 보기
+	@GetMapping("/get")
+	public String get(@RequestParam("fno") Long fno, @ModelAttribute("cri") Criteria cri, Model model) {
 		model.addAttribute("forum", service.get(fno));
+		return "/forum/get";
 	}
+	//수정폼 진입
+	@GetMapping("/modify")
+	public String enterModify(@RequestParam("fno") Long fno, @ModelAttribute("cri") Criteria cri, Model model) {
+		model.addAttribute("forum", service.get(fno));
+		return "/forum/modify";
+	}
+	
+	
 	
 	
 	//수정처리
@@ -66,7 +76,7 @@ public class ForumController {
 		}
 		
 		
-		return "redirect:/forum/list"+cri.getListLink();
+		return "redirect:/www.IBC.co.kr/forum/list"+cri.getListLink();
 	}
 	//삭제 처리
 	@PostMapping("/remove")
@@ -76,7 +86,7 @@ public class ForumController {
 		if(service.remove(fno)) {
 			rttr.addFlashAttribute("result", "success");
 		}
-		return "redirect:/forum/list"+cri.getListLink();
+		return "redirect:/www.IBC.co.kr/forum/list"+cri.getListLink();
 	}
 	
 }
