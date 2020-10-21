@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="../includes/header.jsp"%>
-
+<script src="/resources/ckeditor/ckeditor.js"></script>
 
 <div class="row">
   <div class="col-lg-12">
@@ -43,7 +43,7 @@
 
 <div class="form-group">
   <label>Text area</label>
-  <textarea class="form-control" rows="3" name='fcontent' ><c:out value="${forum.fcontent}"/></textarea>
+  <textarea class="form-control" id="editor" rows="3" name='fcontent' ><c:out value="${forum.fcontent}"/></textarea>
 </div>
 
 <div class="form-group">
@@ -77,7 +77,18 @@
 
 
 
+<script>
 
+ var ckeditor_config = {
+   resize_enaleb : false,
+   enterMode : CKEDITOR.ENTER_BR,
+   shiftEnterMode : CKEDITOR.ENTER_P,
+   filebrowserUploadUrl : "/admin/ckUpload"
+   
+ };
+ 
+ CKEDITOR.replace("editor", ckeditor_config);
+</script>
 
 
 <script type="text/javascript">
