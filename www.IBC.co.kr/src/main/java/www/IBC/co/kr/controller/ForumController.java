@@ -1,5 +1,6 @@
 package www.IBC.co.kr.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ public class ForumController {
 	private ForumService service;
 	
 	@GetMapping("/register")
+	@PreAuthorize("isAutgebticcated")
 	public String register() {
 		return "/forum/register";
 	}
@@ -43,6 +45,8 @@ public class ForumController {
 	//글 등록
 	@PostMapping("/register")
 	public String register(ForumVO forum, RedirectAttributes rttr) {
+		
+		
 		
 		service.register(forum);
 		

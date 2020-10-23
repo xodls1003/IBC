@@ -112,7 +112,7 @@
 				<!--  end Pagination -->
 			</div>
 
-			<form id='actionForm' action="www.IBC.co.kr/forum/list" method='get'>
+			<form id='actionForm' action="/www.IBC.co.kr/forum/list" method='get'>
 				<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
 				<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
 
